@@ -15,8 +15,7 @@ public abstract class ApiTestBase
 
         mockHttp.When($"{Url}/{endpoint}")
             .Respond("application/json", contentString);
-
-        var httpClient = mockHttp.ToHttpClient();
-        return new LocalApiClient(Url, httpClient);
+        
+        return new LocalApiClient(Url, mockHttp);
     }
 }

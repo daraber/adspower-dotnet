@@ -3,9 +3,9 @@ using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi;
 
-public class LocalApiClient(string url, HttpClient? httpClient) : ILocalApiClient, IDisposable
+public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApiClient, IDisposable
 {
-    private readonly HttpClient _httpClient = httpClient ?? new HttpClient();
+    private readonly HttpClient _httpClient = new(handler ?? new HttpClientHandler());
 
     public IBrowserApi Browser => new BrowserApi(this);
 
