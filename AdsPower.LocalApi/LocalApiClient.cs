@@ -14,17 +14,13 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
         return await GetAsync<LocalApiResponse>("status", cancellationToken);
     }
 
-    internal async Task<T> GetAsync<T>(
-        string endpoint,
-        CancellationToken cancellationToken = default
-    )
+    internal async Task<T> GetAsync<T>(string endpoint, CancellationToken cancellationToken = default)
     {
         using var response = await _httpClient.GetAsync($"{url}/{endpoint}", cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
-            var message =
-                $"Bad HTTP response from {endpoint} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
+            var message = $"Bad HTTP response from {endpoint} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
 
             throw new HttpRequestException(message);
         }
