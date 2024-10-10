@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsPower.LocalApi", "AdsPower.LocalApi\AdsPower.LocalApi.csproj", "{CA228B12-B698-4175-B021-2453106E3DCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsPower.LocalApi.Tests", "AdsPower.LocalApi.Tests\AdsPower.LocalApi.Tests.csproj", "{B8F1535B-5382-4CA2-8C14-A4DB578F73D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{CA228B12-B698-4175-B021-2453106E3DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA228B12-B698-4175-B021-2453106E3DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA228B12-B698-4175-B021-2453106E3DCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8F1535B-5382-4CA2-8C14-A4DB578F73D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F1535B-5382-4CA2-8C14-A4DB578F73D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F1535B-5382-4CA2-8C14-A4DB578F73D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F1535B-5382-4CA2-8C14-A4DB578F73D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
