@@ -10,6 +10,7 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
         CancellationToken cancellationToken = default
     )
     {
+        // TODO: Pass request data as query string
         const string endpoint = "api/v1/browser/start";
         return await apiClient.GetAsync<StartBrowserResponse>(endpoint, cancellationToken);
     }
