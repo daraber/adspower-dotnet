@@ -36,8 +36,16 @@ public class BrowserApiTests : ApiTestBase
         Assert.Multiple(() =>
         {
             Assert.That(result.Code, Is.EqualTo(content.code));
-            Assert.That(result.Data, Is.Not.Null);
             Assert.That(result.Message, Is.EqualTo(content.msg));
+
+            Assert.That(result.Data, Is.Not.Null);
+            Assert.That(result.Data?.DebugPort, Is.EqualTo(content.data.debug_port));
+            Assert.That(result.Data?.WebDriver, Is.EqualTo(content.data.webdriver));
+
+            Assert.That(result.Data?.Websockets, Is.Not.Null
+                .And.Count.EqualTo(2)
+                .And.ContainKey("selenium")
+                .And.ContainKey("puppeteer"));
         });
     }
 
