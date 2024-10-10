@@ -8,7 +8,7 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
     {
         throw new NotImplementedException();
     }
-
+    
     public Task StopAsync(BrowserRequest request, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
