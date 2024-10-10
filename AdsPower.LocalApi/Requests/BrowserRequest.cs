@@ -1,5 +1,8 @@
 namespace AdsPower.LocalApi.Requests;
 
+/// <summary>
+/// Represents the common properties for a browser-related request.
+/// </summary>
 public record BrowserRequest
 {
     /// <summary>
