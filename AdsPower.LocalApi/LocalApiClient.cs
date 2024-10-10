@@ -28,7 +28,7 @@ public class LocalApiClient(string url, HttpClient? httpClient) : ILocalApiClien
 
             throw new HttpRequestException(message);
         }
-
+        
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
         if (result is null)
         {
