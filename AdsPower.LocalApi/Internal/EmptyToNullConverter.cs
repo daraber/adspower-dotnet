@@ -8,20 +8,31 @@ internal sealed class EmptyObjectToNullConverter<T> : JsonConverter<T> where T :
 {
     public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions? options)
     {
+        if (reader.TokenType == JsonTokenType.Null)
+        {
+            return null;
+        }
+        
+        var initialState = reader;
+        
         if (reader.TokenType == JsonTokenType.StartObject)
         {
-            // Advance the reader to see if it's an empty object
+            // Read the next token to check if the object is empty
             reader.Read();
             if (reader.TokenType == JsonTokenType.EndObject)
             {
                 return null;
             }
+            
+            reader = initialState;
+            return JsonSerializer.Deserialize<T>(ref reader, options);
         }
 
-        // Deserialize normally if it's not an empty object
-        return JsonSerializer.Deserialize<T>(ref reader, options);
+        // If we encounter an unexpected token type, throw an exception
+        throw new JsonException($"Unexpected token type {reader.TokenType} when deserializing {typeToConvert}.");
     }
 
+    
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
         // Use default serialization logic for writing
