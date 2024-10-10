@@ -18,4 +18,9 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
     {
         throw new NotImplementedException();
     }
+
+    public Task DeleteCacheAsync(CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }
