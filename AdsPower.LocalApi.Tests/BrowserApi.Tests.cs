@@ -45,7 +45,8 @@ public class BrowserApiTests : ApiTestBase
             Assert.That(result.Data?.Websockets, Is.Not.Null
                 .And.Count.EqualTo(2)
                 .And.ContainKey("selenium")
-                .And.ContainKey("puppeteer"));
+                .And.ContainKey("puppeteer")
+            );
         });
     }
 
