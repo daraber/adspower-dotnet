@@ -14,13 +14,13 @@ public record BrowserData
     public Dictionary<string, string>? Websockets { get; init; }
 
     /// <summary>
-    /// Gets the debug port for the browser instance. Required for operation.
+    /// Gets the debug port for the browser instance.
     /// </summary>
     [JsonPropertyName("debug_port")]
     public required string DebugPort { get; init; }
 
     /// <summary>
-    /// Gets the file path of the WebDriver executable. Required for operation.
+    /// Gets the file path of the WebDriver executable.
     /// </summary>
     [JsonPropertyName("webdriver")]
     public required string WebDriver { get; init; }
