@@ -1,10 +1,9 @@
 using System.Net.Http.Json;
-using System.Web;
 using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi;
 
-public class LocalApiClient(string url, HttpClient? httpClient) : ILocalApiClient
+public class LocalApiClient(string url, HttpClient? httpClient) : ILocalApiClient, IDisposable
 {
     private readonly HttpClient _httpClient = httpClient ?? new HttpClient();
 
@@ -38,5 +37,11 @@ public class LocalApiClient(string url, HttpClient? httpClient) : ILocalApiClien
         }
 
         return result;
+    }
+
+    public void Dispose()
+    {
+        _httpClient.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
