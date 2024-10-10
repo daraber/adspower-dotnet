@@ -16,16 +16,19 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
 
     public Task StopAsync(BrowserRequest request, CancellationToken cancellationToken = default)
     {
+        const string endpoint = "/api/v1/browser/stop";
         throw new NotImplementedException();
     }
 
     public Task GetStatusAsync(BrowserRequest request, CancellationToken cancellationToken = default)
     {
+        const string endpoint = "/api/v1/browser/active";
         throw new NotImplementedException();
     }
 
     public Task DeleteCacheAsync(CancellationToken cancellationToken = default)
     {
+        const string endpoint = "/api/v1/user/delete-cache";
         throw new NotImplementedException();
     }
 }
