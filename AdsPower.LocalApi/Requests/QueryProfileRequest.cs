@@ -1,6 +1,5 @@
 namespace AdsPower.LocalApi.Requests;
 
-using System.Text.Json;
 using System.Collections.Generic;
 
 /// <summary>
