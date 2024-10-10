@@ -3,6 +3,7 @@
 [TestFixture]
 [TestOf(typeof(LocalApiClient))]
 [Parallelizable(ParallelScope.All)]
+[Category("Mock")]
 public class LocalApiClientTests : ApiTestBase
 {
     [Test]
