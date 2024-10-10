@@ -4,5 +4,5 @@ namespace AdsPower.LocalApi;
 
 public interface ILocalApiClient
 {
-    Task<StatusResponse> GetStatusAsync(CancellationToken cancellationToken = default);
+    Task<StatusResponse> GetConnectionStatus(CancellationToken cancellationToken = default);
 }
