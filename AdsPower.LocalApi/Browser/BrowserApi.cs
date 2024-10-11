@@ -21,10 +21,13 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
         return await apiClient.GetAsync<LocalApiResponse>(endpoint, cancellationToken);
     }
 
-    public Task GetStatusAsync(BrowserRequest request, CancellationToken cancellationToken = default)
+    public Task<BrowserStatusResponse> GetStatusAsync(
+        BrowserRequest request,
+        CancellationToken cancellationToken = default
+    )
     {
         const string endpoint = "/api/v1/browser/active";
-        throw new NotImplementedException();
+        return apiClient.GetAsync<BrowserStatusResponse>(endpoint, request, cancellationToken);
     }
 
     public Task DeleteCacheAsync(CancellationToken cancellationToken = default)
