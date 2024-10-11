@@ -7,7 +7,19 @@ public abstract class ApiTestBase
 {
     private const string Url = "http://localhost";
     
-    
+    protected async Task<TResponse> MockResponse<TResponse>(
+        string endpoint,
+        Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
+        object responseContent,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var mockApiClient = CreateMockClient(endpoint, responseContent);
+        var apiFunction = call(mockApiClient);
+
+        var apiResponse = await apiFunction(cancellationToken);
+        return apiResponse;
+    }
     protected async Task<TResponse> MockResponse<TRequest, TResponse>(
         string endpoint,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
