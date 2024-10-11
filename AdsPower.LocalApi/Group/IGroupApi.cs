@@ -8,5 +8,5 @@ public interface IGroupApi
 {
     public Task<CreateGroupResponse> CreateAsync(GroupRequest request, CancellationToken cancellationToken = default);
     public Task<LocalApiResponse> UpdateAsync(UpdateGroupRequest request, CancellationToken cancellationToken = default);
-    public Task ListAsync(QueryGroupRequest request, CancellationToken cancellationToken = default);
+    public Task<ListGroupsResponse> ListAsync(ListGroupsRequest request, CancellationToken cancellationToken = default);
 }

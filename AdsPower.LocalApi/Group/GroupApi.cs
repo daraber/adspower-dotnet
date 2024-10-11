@@ -18,8 +18,9 @@ public class GroupApi(LocalApiClient apiClient) : IGroupApi
         return apiClient.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public Task ListAsync(QueryGroupRequest request, CancellationToken cancellationToken = default)
+    public Task<ListGroupsResponse> ListAsync(ListGroupsRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        const string path = "/api/v1/group/list";
+        return apiClient.GetAsync<ListGroupsResponse>(path, request, cancellationToken);
     }
 }
