@@ -1,6 +1,6 @@
 using AdsPower.LocalApi.Requests;
 
-namespace AdsPower.LocalApi;
+namespace AdsPower.LocalApi.Profile;
 
 public interface IProfileApi
 {
