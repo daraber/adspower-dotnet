@@ -40,13 +40,19 @@ public class ProfileApi(LocalApiClient client) : IProfileApi
         return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public async Task<LocalApiResponse> RegroupAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<LocalApiResponse> RegroupAsync(
+        MoveProfileRequest request,
+        CancellationToken cancellationToken = default
+    )
     {
         const string path = "/api/v1/user/regroup";
         return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public async Task<LocalApiResponse> DeleteCacheAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<LocalApiResponse> DeleteCacheAsync(
+        MoveProfileRequest request,
+        CancellationToken cancellationToken = default
+    )
     {
         const string path = "/api/v1/user/delete-cache";
         return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
