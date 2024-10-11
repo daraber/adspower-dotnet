@@ -1,4 +1,4 @@
-namespace AdsPower.LocalApi.Models;
+namespace AdsPower.LocalApi.Profile.Models;
 
 /// <summary>
 /// Represents a single cookie's information.

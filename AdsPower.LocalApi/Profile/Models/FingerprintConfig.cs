@@ -1,6 +1,4 @@
-namespace AdsPower.LocalApi.Models;
-
-using System.Collections.Generic;
+namespace AdsPower.LocalApi.Profile.Models;
 
 /// <summary>
 /// Represents the configuration settings for browser fingerprinting.

@@ -1,6 +1,4 @@
-namespace AdsPower.LocalApi.Requests;
-
-using System.Collections.Generic;
+namespace AdsPower.LocalApi.Profile.Requests;
 
 /// <summary>
 /// Represents the request parameters for querying profiles.

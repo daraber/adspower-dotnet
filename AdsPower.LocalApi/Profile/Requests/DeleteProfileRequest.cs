@@ -1,4 +1,4 @@
-namespace AdsPower.LocalApi.Requests;
+namespace AdsPower.LocalApi.Profile.Requests;
 
 /// <summary>
 /// Represents the request parameters for deleting profiles.

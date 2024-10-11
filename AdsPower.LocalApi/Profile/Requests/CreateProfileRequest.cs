@@ -1,6 +1,6 @@
-using AdsPower.LocalApi.Models;
+using AdsPower.LocalApi.Profile.Models;
 
-namespace AdsPower.LocalApi.Requests;
+namespace AdsPower.LocalApi.Profile.Requests;
 
 /// <summary>
 /// Represents the request to create a new browser profile with configuration options.

@@ -1,4 +1,4 @@
-namespace AdsPower.LocalApi.Models;
+namespace AdsPower.LocalApi.Profile.Models;
 
 /// <summary>
 /// Represents the configuration settings for proxy usage in an account.

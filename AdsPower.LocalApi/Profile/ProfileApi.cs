@@ -1,4 +1,4 @@
-﻿using AdsPower.LocalApi.Requests;
+﻿using AdsPower.LocalApi.Profile.Requests;
 
 namespace AdsPower.LocalApi.Profile;
 
