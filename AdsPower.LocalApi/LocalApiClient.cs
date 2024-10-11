@@ -4,6 +4,7 @@ using AdsPower.LocalApi.Application;
 using AdsPower.LocalApi.Browser;
 using AdsPower.LocalApi.Group;
 using AdsPower.LocalApi.Internal;
+using AdsPower.LocalApi.Profile;
 using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi;
@@ -15,6 +16,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
     public IBrowserApi Browser => new BrowserApi(this);
     public IGroupApi Group => new GroupApi(this);
     public IApplicationApi Application => new ApplicationApi(this);
+    public IProfileApi Profile => new ProfileApi(this);
     
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
