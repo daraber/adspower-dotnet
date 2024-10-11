@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using AdsPower.LocalApi.Browser;
 using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi;

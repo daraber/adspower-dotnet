@@ -1,4 +1,4 @@
-namespace AdsPower.LocalApi.Requests;
+namespace AdsPower.LocalApi.Browser.Requests;
 
 public record StartBrowserRequest : BrowserRequest
 {

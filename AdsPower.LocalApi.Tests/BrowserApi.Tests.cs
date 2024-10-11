@@ -1,4 +1,7 @@
-﻿using AdsPower.LocalApi.Requests;
+﻿using AdsPower.LocalApi.Browser;
+using AdsPower.LocalApi.Browser.Requests;
+using AdsPower.LocalApi.Browser.Responses;
+using AdsPower.LocalApi.Requests;
 using AdsPower.LocalApi.Responses;
 using AdsPower.LocalApi.Tests.Internal;
 
