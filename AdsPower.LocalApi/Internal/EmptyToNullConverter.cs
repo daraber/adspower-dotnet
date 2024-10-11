@@ -12,9 +12,9 @@ internal class EmptyObjectToNullConverter<T> : JsonConverter<T> where T : class
         {
             return null;
         }
-        
+
         var initialState = reader;
-        
+
         if (reader.TokenType == JsonTokenType.StartObject)
         {
             // Read the next token to check if the object is empty
@@ -23,7 +23,7 @@ internal class EmptyObjectToNullConverter<T> : JsonConverter<T> where T : class
             {
                 return null;
             }
-            
+
             reader = initialState;
             return JsonSerializer.Deserialize<T>(ref reader, options);
         }
@@ -32,12 +32,10 @@ internal class EmptyObjectToNullConverter<T> : JsonConverter<T> where T : class
         throw new JsonException($"Unexpected token type {reader.TokenType} when deserializing {typeToConvert}.");
     }
 
-    
+
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
         // Use default serialization logic for writing
         JsonSerializer.Serialize(writer, value, options);
     }
 }
-
-internal sealed class EmptyObjectToNullConverter : EmptyObjectToNullConverter<object>;
