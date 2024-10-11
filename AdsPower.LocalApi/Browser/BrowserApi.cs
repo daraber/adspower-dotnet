@@ -29,10 +29,4 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
         const string endpoint = "/api/v1/browser/active";
         return apiClient.GetAsync<BrowserStatusResponse>(endpoint, request, cancellationToken);
     }
-
-    public Task DeleteCacheAsync(CancellationToken cancellationToken = default)
-    {
-        const string endpoint = "/api/v1/user/delete-cache";
-        throw new NotImplementedException();
-    }
 }
