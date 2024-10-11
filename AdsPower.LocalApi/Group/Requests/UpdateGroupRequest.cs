@@ -1,4 +1,4 @@
-namespace AdsPower.LocalApi.Requests;
+namespace AdsPower.LocalApi.Group.Requests;
 
 /// <summary>
 /// Represents the request to update group information, ensuring group name uniqueness.

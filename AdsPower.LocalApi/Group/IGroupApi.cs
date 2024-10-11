@@ -1,6 +1,6 @@
-using AdsPower.LocalApi.Requests;
+using AdsPower.LocalApi.Group.Requests;
 
-namespace AdsPower.LocalApi;
+namespace AdsPower.LocalApi.Group;
 
 public interface IGroupApi
 {

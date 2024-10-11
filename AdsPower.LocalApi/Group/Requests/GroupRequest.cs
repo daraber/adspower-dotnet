@@ -1,4 +1,4 @@
-namespace AdsPower.LocalApi.Requests;
+namespace AdsPower.LocalApi.Group.Requests;
 
 /// <summary>
 /// Represents the common properties for a group-related request.
