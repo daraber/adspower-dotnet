@@ -12,14 +12,14 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
         CancellationToken cancellationToken = default
     )
     {
-        const string endpoint = "api/v1/browser/start";
-        return await apiClient.GetAsync<StartBrowserResponse>(endpoint, request, cancellationToken);
+        const string path = "api/v1/browser/start";
+        return await apiClient.GetAsync<StartBrowserResponse>(path, request, cancellationToken);
     }
 
     public async Task<LocalApiResponse> StopAsync(BrowserRequest request, CancellationToken cancellationToken = default)
     {
-        const string endpoint = "/api/v1/browser/stop";
-        return await apiClient.GetAsync<LocalApiResponse>(endpoint, cancellationToken);
+        const string path = "/api/v1/browser/stop";
+        return await apiClient.GetAsync<LocalApiResponse>(path, cancellationToken);
     }
 
     public Task<BrowserStatusResponse> GetStatusAsync(
@@ -27,13 +27,13 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
         CancellationToken cancellationToken = default
     )
     {
-        const string endpoint = "/api/v1/browser/active";
-        return apiClient.GetAsync<BrowserStatusResponse>(endpoint, request, cancellationToken);
+        const string path = "/api/v1/browser/active";
+        return apiClient.GetAsync<BrowserStatusResponse>(path, request, cancellationToken);
     }
 
     public Task<BrowserStatusList> GetStatusListAsync(CancellationToken cancellationToken = default)
     {
-        const string endpoint = "/api/v1/browser/local-active";
-        return apiClient.GetAsync<BrowserStatusList>(endpoint, cancellationToken);
+        const string path = "/api/v1/browser/local-active";
+        return apiClient.GetAsync<BrowserStatusList>(path, cancellationToken);
     }
 }
