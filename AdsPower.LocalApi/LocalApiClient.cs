@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Web;
+using AdsPower.LocalApi.Application;
 using AdsPower.LocalApi.Browser;
 using AdsPower.LocalApi.Group;
 using AdsPower.LocalApi.Internal;
@@ -13,7 +14,8 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
 
     public IBrowserApi Browser => new BrowserApi(this);
     public IGroupApi Group => new GroupApi(this);
-
+    public IApplicationApi Application => new ApplicationApi(this);
+    
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
         return await GetAsync<LocalApiResponse>("status", cancellationToken);
