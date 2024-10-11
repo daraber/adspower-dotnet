@@ -17,7 +17,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
     public IGroupApi Group => new GroupApi(this);
     public IApplicationApi Application => new ApplicationApi(this);
     public IProfileApi Profile => new ProfileApi(this);
-    
+
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
         return await GetAsync<LocalApiResponse>("status", cancellationToken);
@@ -27,7 +27,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
         string path,
         IQueryParameterizeable request,
         CancellationToken cancellationToken = default
-    )
+    ) where T : LocalApiResponse
     {
         var queryString = request.GetQueryParameters()
             .Aggregate("", (current, pair) => $"{current}&{pair.Key}={HttpUtility.UrlEncode(pair.Value)}");
@@ -36,6 +36,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
     }
 
     internal async Task<T> GetAsync<T>(string path, CancellationToken cancellationToken = default)
+        where T : LocalApiResponse
     {
         using var response = await _httpClient.GetAsync($"{url}/{path}", cancellationToken);
 
@@ -58,6 +59,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
     }
 
     internal async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
+        where T : LocalApiResponse
     {
         using var response = await _httpClient.PostAsJsonAsync($"{url}/{path}", request, cancellationToken);
 
