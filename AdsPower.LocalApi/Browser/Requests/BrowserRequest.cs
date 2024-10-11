@@ -17,11 +17,11 @@ public record BrowserRequest : IQueryParameterizeable
     /// </summary>
     public string? SerialNumber { get; init; }
 
-    public Dictionary<string, string> GetQueryParameters()
+    public virtual Dictionary<string, string> GetQueryParameters()
     {
         var parameters = new Dictionary<string, string>
         {
-            { "user_id", UserId }
+            { "user_id", UserId },
         };
 
         if (!string.IsNullOrWhiteSpace(SerialNumber))
