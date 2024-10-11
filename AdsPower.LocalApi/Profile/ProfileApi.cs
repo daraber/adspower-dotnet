@@ -4,23 +4,39 @@ namespace AdsPower.LocalApi.Profile;
 
 public class ProfileApi : IProfileApi
 {
-    public Task CreateProfileAsync(CreateProfileRequest request, CancellationToken cancellationToken = default)
+    public Task CreateAsync(CreateProfileRequest request, CancellationToken cancellationToken = default)
     {
+        const string path = "/api/v1/user/create";
         throw new NotImplementedException();
     }
 
-    public Task UpdateProfileAsync(UpdateProfileRequest request, CancellationToken cancellationToken = default)
+    public Task UpdateAsync(UpdateProfileRequest request, CancellationToken cancellationToken = default)
     {
+        const string path = "/api/v1/user/update";
         throw new NotImplementedException();
     }
 
-    public Task DeleteProfileAsync(DeleteProfileRequest request, CancellationToken cancellationToken = default)
+    public Task ListAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
     {
+        const string path = "/api/v1/user/list";
         throw new NotImplementedException();
     }
 
-    public Task MoveProfileAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
+    public Task DeleteAsync(DeleteProfileRequest request, CancellationToken cancellationToken = default)
     {
+        const string path = "/api/v1/user/delete";
+        throw new NotImplementedException();
+    }
+
+    public Task RegroupAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
+    {
+        const string path = "/api/v1/user/regroup";
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteCacheAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
+    {
+        const string path = "/api/v1/user/delete-cache";
         throw new NotImplementedException();
     }
 }

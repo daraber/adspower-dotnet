@@ -4,9 +4,10 @@ namespace AdsPower.LocalApi.Profile;
 
 public interface IProfileApi
 {
-    Task CreateProfileAsync(CreateProfileRequest request, CancellationToken cancellationToken = default);
-    Task UpdateProfileAsync(UpdateProfileRequest request, CancellationToken cancellationToken = default);
-    Task DeleteProfileAsync(DeleteProfileRequest request, CancellationToken cancellationToken = default);
-    Task MoveProfileAsync(MoveProfileRequest request, CancellationToken cancellationToken = default);
-    
+    Task CreateAsync(CreateProfileRequest request, CancellationToken cancellationToken = default);
+    Task UpdateAsync(UpdateProfileRequest request, CancellationToken cancellationToken = default);
+    Task ListAsync(MoveProfileRequest request, CancellationToken cancellationToken = default);
+    Task DeleteAsync(DeleteProfileRequest request, CancellationToken cancellationToken = default);
+    Task RegroupAsync(MoveProfileRequest request, CancellationToken cancellationToken = default);
+    Task DeleteCacheAsync(MoveProfileRequest request, CancellationToken cancellationToken = default);
 }
