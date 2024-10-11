@@ -1,4 +1,4 @@
-﻿using AdsPower.LocalApi.Responses;
+﻿using AdsPower.LocalApi.Shared;
 using AdsPower.LocalApi.Tests.Internal;
 
 namespace AdsPower.LocalApi.Tests;

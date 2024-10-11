@@ -2,7 +2,7 @@
 using AdsPower.LocalApi.Browser.Models;
 using AdsPower.LocalApi.Browser.Requests;
 using AdsPower.LocalApi.Browser.Responses;
-using AdsPower.LocalApi.Responses;
+using AdsPower.LocalApi.Shared;
 using AdsPower.LocalApi.Tests.Internal;
 
 namespace AdsPower.LocalApi.Tests;

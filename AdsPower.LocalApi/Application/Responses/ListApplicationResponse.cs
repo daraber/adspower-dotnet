@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using AdsPower.LocalApi.Application.Models;
 using AdsPower.LocalApi.Internal;
-using AdsPower.LocalApi.Responses;
+using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Application.Responses;
 

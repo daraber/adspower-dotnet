@@ -1,6 +1,6 @@
 using AdsPower.LocalApi.Group.Requests;
 using AdsPower.LocalApi.Group.Responses;
-using AdsPower.LocalApi.Responses;
+using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Group;
 

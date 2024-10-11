@@ -5,7 +5,7 @@ using AdsPower.LocalApi.Browser;
 using AdsPower.LocalApi.Group;
 using AdsPower.LocalApi.Internal;
 using AdsPower.LocalApi.Profile;
-using AdsPower.LocalApi.Responses;
+using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi;
 

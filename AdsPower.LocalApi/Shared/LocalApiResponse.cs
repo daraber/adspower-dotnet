@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace AdsPower.LocalApi.Responses;
+namespace AdsPower.LocalApi.Shared;
 
 public record LocalApiResponse
 {
