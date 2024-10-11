@@ -1,25 +1,34 @@
 ﻿using AdsPower.LocalApi.Profile.Requests;
+using AdsPower.LocalApi.Profile.Responses;
+using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile;
 
 public class ProfileApi(LocalApiClient client) : IProfileApi
 {
-    public Task CreateAsync(CreateProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<CreateProfileResponse> CreateAsync(CreateProfileRequest request,
+        CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/user/create";
-        throw new NotImplementedException();
+        return await client.PostAsync<CreateProfileResponse>(path, request, cancellationToken);
     }
 
-    public Task UpdateAsync(UpdateProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<LocalApiResponse> UpdateAsync(
+        UpdateProfileRequest request,
+        CancellationToken cancellationToken = default
+    )
     {
         const string path = "/api/v1/user/update";
-        throw new NotImplementedException();
+        return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public Task ListAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<ListProfilesResponse> ListAsync(
+        MoveProfileRequest request,
+        CancellationToken cancellationToken = default
+    )
     {
         const string path = "/api/v1/user/list";
-        throw new NotImplementedException();
+        return await client.PostAsync<ListProfilesResponse>(path, request, cancellationToken);
     }
 
     public Task DeleteAsync(DeleteProfileRequest request, CancellationToken cancellationToken = default)
