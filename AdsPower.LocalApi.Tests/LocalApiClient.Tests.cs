@@ -1,4 +1,6 @@
-﻿namespace AdsPower.LocalApi.Tests;
+﻿using AdsPower.LocalApi.Responses;
+
+namespace AdsPower.LocalApi.Tests;
 
 [TestFixture]
 [TestOf(typeof(LocalApiClient))]
@@ -20,15 +22,22 @@ public class LocalApiClientTests : ApiTestBase
     
     private async Task TestGetConnectionStatus(string endpoint, int code, string message)
     {
-        var content = new { code, msg = message };
+        var response = new
+        {
+            code,
+            msg = message
+        };
 
-        using var apiClient = CreateMockClient(endpoint, content);
-        var response = await apiClient.GetConnectionStatus();
-        
+        var result = await MockResponse<LocalApiResponse>(
+            endpoint,
+            apiClient => apiClient.GetConnectionStatusAsync,
+            response
+        );
+
         Assert.Multiple(() =>
         {
-            Assert.That(response.Code, Is.EqualTo(content.code));
-            Assert.That(response.Message, Is.EqualTo(message));
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
         });
     }
 }
