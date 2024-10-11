@@ -9,4 +9,7 @@ public record ListProfilesResponse : LocalApiResponse<ProfileInfoList>
 {
     [JsonConverter(typeof(EmptyObjectToNullConverter<ProfileInfoList>))]
     public override ProfileInfoList? Data { get; init; }
+    
+    [JsonPropertyName("page")] public int Page { get; init; }
+    [JsonPropertyName("page_size")] public int PageSize { get; init; }
 }

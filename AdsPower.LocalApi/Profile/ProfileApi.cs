@@ -31,21 +31,24 @@ public class ProfileApi(LocalApiClient client) : IProfileApi
         return await client.PostAsync<ListProfilesResponse>(path, request, cancellationToken);
     }
 
-    public Task DeleteAsync(DeleteProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<LocalApiResponse> DeleteAsync(
+        DeleteProfileRequest request,
+        CancellationToken cancellationToken = default
+    )
     {
         const string path = "/api/v1/user/delete";
-        throw new NotImplementedException();
+        return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public Task RegroupAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<LocalApiResponse> RegroupAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/user/regroup";
-        throw new NotImplementedException();
+        return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public Task DeleteCacheAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<LocalApiResponse> DeleteCacheAsync(MoveProfileRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/user/delete-cache";
-        throw new NotImplementedException();
+        return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 }
