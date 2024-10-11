@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace AdsPower.LocalApi.Internal;
 
 // This converter will convert an empty object to null when deserializing, for example: data: {}
-internal sealed class EmptyObjectToNullConverter<T> : JsonConverter<T> where T : class
+internal class EmptyObjectToNullConverter<T> : JsonConverter<T> where T : class
 {
     public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions? options)
     {
@@ -39,3 +39,5 @@ internal sealed class EmptyObjectToNullConverter<T> : JsonConverter<T> where T :
         JsonSerializer.Serialize(writer, value, options);
     }
 }
+
+internal sealed class EmptyObjectToNullConverter : EmptyObjectToNullConverter<object>;
