@@ -1,3 +1,4 @@
+using AdsPower.LocalApi.Browser.Models;
 using AdsPower.LocalApi.Browser.Requests;
 using AdsPower.LocalApi.Browser.Responses;
 using AdsPower.LocalApi.Responses;
@@ -28,5 +29,11 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
     {
         const string endpoint = "/api/v1/browser/active";
         return apiClient.GetAsync<BrowserStatusResponse>(endpoint, request, cancellationToken);
+    }
+
+    public Task<BrowserStatusList> GetStatusListAsync(CancellationToken cancellationToken = default)
+    {
+        const string endpoint = "/api/v1/browser/local-active";
+        return apiClient.GetAsync<BrowserStatusList>(endpoint, cancellationToken);
     }
 }
