@@ -1,7 +1,5 @@
 using AdsPower.LocalApi.Browser.Requests;
 using AdsPower.LocalApi.Browser.Responses;
-using AdsPower.LocalApi.Requests;
-using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi.Browser;
 
