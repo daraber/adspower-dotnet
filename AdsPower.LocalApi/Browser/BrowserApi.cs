@@ -1,4 +1,3 @@
-using AdsPower.LocalApi.Browser.Models;
 using AdsPower.LocalApi.Browser.Requests;
 using AdsPower.LocalApi.Browser.Responses;
 using AdsPower.LocalApi.Responses;
@@ -7,13 +6,9 @@ namespace AdsPower.LocalApi.Browser;
 
 public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
 {
-    public async Task<StartBrowserResponse> StartAsync(
-        StartBrowserRequest request,
-        CancellationToken cancellationToken = default
-    )
+    public async Task<StartBrowserResponse> StartAsync(StartBrowserRequest request, CancellationToken cancellationToken = default)
     {
-        const string path = "api/v1/browser/start";
-        return await apiClient.GetAsync<StartBrowserResponse>(path, request, cancellationToken);
+        return await apiClient.GetAsync<StartBrowserResponse>("api/v1/browser/start", request, cancellationToken);
     }
 
     public async Task<LocalApiResponse> StopAsync(BrowserRequest request, CancellationToken cancellationToken = default)
