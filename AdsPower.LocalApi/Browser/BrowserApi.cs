@@ -1,5 +1,6 @@
 using AdsPower.LocalApi.Browser.Requests;
 using AdsPower.LocalApi.Browser.Responses;
+using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi.Browser;
 
@@ -10,15 +11,14 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
         CancellationToken cancellationToken = default
     )
     {
-        // TODO: Pass request data as query string
         const string endpoint = "api/v1/browser/start";
-        return await apiClient.GetAsync<StartBrowserResponse>(endpoint, cancellationToken);
+        return await apiClient.GetAsync<StartBrowserResponse>(endpoint, request, cancellationToken);
     }
 
-    public Task StopAsync(BrowserRequest request, CancellationToken cancellationToken = default)
+    public async Task<LocalApiResponse> StopAsync(BrowserRequest request, CancellationToken cancellationToken = default)
     {
         const string endpoint = "/api/v1/browser/stop";
-        throw new NotImplementedException();
+        return await apiClient.GetAsync<LocalApiResponse>(endpoint, cancellationToken);
     }
 
     public Task GetStatusAsync(BrowserRequest request, CancellationToken cancellationToken = default)

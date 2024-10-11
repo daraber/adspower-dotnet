@@ -1,5 +1,8 @@
 using System.Net.Http.Json;
+using System.Web;
 using AdsPower.LocalApi.Browser;
+using AdsPower.LocalApi.Internal;
+using AdsPower.LocalApi.Requests;
 using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi;
@@ -15,17 +18,31 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
         return await GetAsync<LocalApiResponse>("status", cancellationToken);
     }
 
+    internal async Task<T> GetAsync<T>(
+        string endpoint,
+        IQueryParameterizeable request,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var queryString = request.GetQueryParameters()
+            .Aggregate("", (current, pair) => $"{current}&{pair.Key}={HttpUtility.UrlEncode(pair.Value)}");
+
+        return await GetAsync<T>($"{endpoint}?{queryString}", cancellationToken);
+    }
+
+
     internal async Task<T> GetAsync<T>(string endpoint, CancellationToken cancellationToken = default)
     {
         using var response = await _httpClient.GetAsync($"{url}/{endpoint}", cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
-            var message = $"Bad HTTP response from {endpoint} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
+            var message =
+                $"Bad HTTP response from {endpoint} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
 
             throw new HttpRequestException(message);
         }
-        
+
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
         if (result is null)
         {
