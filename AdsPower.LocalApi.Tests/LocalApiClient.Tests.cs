@@ -1,11 +1,12 @@
 ﻿using AdsPower.LocalApi.Responses;
+using AdsPower.LocalApi.Tests.Internal;
 
 namespace AdsPower.LocalApi.Tests;
 
 [TestFixture]
 [TestOf(typeof(LocalApiClient))]
 [Parallelizable(ParallelScope.All)]
-[Category("Mock")]
+[MockTest]
 public class LocalApiClientTests : ApiTestBase
 {
     [Test]
