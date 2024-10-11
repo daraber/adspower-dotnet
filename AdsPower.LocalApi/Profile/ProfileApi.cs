@@ -2,7 +2,7 @@
 
 namespace AdsPower.LocalApi.Profile;
 
-public class ProfileApi : IProfileApi
+public class ProfileApi(LocalApiClient client) : IProfileApi
 {
     public Task CreateAsync(CreateProfileRequest request, CancellationToken cancellationToken = default)
     {
