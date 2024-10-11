@@ -8,11 +8,8 @@ public record LocalApiResponse
     [JsonPropertyName("msg")] public required string Message { get; init; }
 }
 
-public abstract record LocalApiResponse<T> where T : class
+public abstract record LocalApiResponse<T> : LocalApiResponse where T : class
 {
-    [JsonPropertyName("code")] public required int Code { get; init; }
-    [JsonPropertyName("msg")] public required string Message { get; init; }
-    
     [JsonPropertyName("data")]
     public abstract T? Data { get; init; }
 }
