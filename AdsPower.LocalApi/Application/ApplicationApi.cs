@@ -1,11 +1,16 @@
-﻿using AdsPower.LocalApi.Requests;
+﻿using AdsPower.LocalApi.Application.Requests;
+using AdsPower.LocalApi.Application.Responses;
 
 namespace AdsPower.LocalApi.Application;
 
-public class ApplicationApi : IApplicationApi
+public class ApplicationApi(LocalApiClient apiClient) : IApplicationApi
 {
-    public Task ListAsync(ListApplicationsRequest request, CancellationToken cancellationToken = default)
+    public Task<ListApplicationResponse> ListAsync(
+        ListApplicationsRequest request,
+        CancellationToken cancellationToken = default
+    )
     {
-        throw new NotImplementedException();
+        const string path = "/api/v1/application/list";
+        return apiClient.GetAsync<ListApplicationResponse>(path, request, cancellationToken);
     }
 }

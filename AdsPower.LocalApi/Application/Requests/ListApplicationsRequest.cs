@@ -1,6 +1,6 @@
 using AdsPower.LocalApi.Internal;
 
-namespace AdsPower.LocalApi.Requests;
+namespace AdsPower.LocalApi.Application.Requests;
 
 /// <summary>
 /// Represents the request to query the list of application categories.
