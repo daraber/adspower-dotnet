@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 using System.Web;
 using AdsPower.LocalApi.Browser;
+using AdsPower.LocalApi.Group;
 using AdsPower.LocalApi.Internal;
 using AdsPower.LocalApi.Responses;
 
@@ -11,6 +12,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
     private readonly HttpClient _httpClient = new(handler ?? new HttpClientHandler());
 
     public IBrowserApi Browser => new BrowserApi(this);
+    public IGroupApi Group => new GroupApi(this);
 
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
@@ -57,7 +59,8 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
 
         if (!response.IsSuccessStatusCode)
         {
-            var message = $"Bad HTTP response from {path} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
+            var message =
+                $"Bad HTTP response from {path} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
 
             throw new HttpRequestException(message);
         }
