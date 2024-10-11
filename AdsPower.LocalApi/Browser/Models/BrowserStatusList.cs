@@ -7,5 +7,5 @@ namespace AdsPower.LocalApi.Browser.Models;
 /// </summary>
 public record BrowserStatusList
 {
-    [JsonPropertyName("list")] public required List<BrowserData> Browsers { get; init; }
+    [JsonPropertyName("list")] public required List<UserBrowserData> Browsers { get; init; }
 }

@@ -190,7 +190,57 @@ public class BrowserApiTests : ApiTestBase
     [Test]
     public async Task GetStatusList_Success()
     {
-        throw new NotImplementedException();
+        var response = new
+        {
+            code = 0,
+            msg = "success",
+            data = new
+            {
+                list = new[]
+                {
+                    new
+                    {
+                        user_id = "xxx",
+                        ws = new
+                        {
+                            puppeteer = "ws://127.0.0.1:xxxx/devtools/browser/xxxxxx",
+                            selenium = "127.0.0.1:xxxx"
+                        },
+                        debug_port = "xxxx",
+                        webdriver = "xxxx"
+                    }
+                }
+            }
+        };
+
+        var result = await MockResponse<BrowserStatusListResponse>(
+            "/api/v1/browser/local-active",
+            apiClient => apiClient.Browser.GetStatusListAsync,
+            response
+        );
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+
+            Assert.That(result.Data, Is.Not.Null);
+        });
+        
+        Assert.That(result.Data?.Browsers, Is.Not.Null);
+        Assert.That(result.Data?.Browsers.Count, Is.EqualTo(response.data.list.Length));
+
+        var browser = result.Data?.Browsers[0];
+        var expectedBrowser = response.data.list[0];
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(browser?.UserId, Is.EqualTo(expectedBrowser.user_id));
+            Assert.That(browser?.Websockets?["puppeteer"], Is.EqualTo(expectedBrowser.ws.puppeteer));
+            Assert.That(browser?.Websockets?["selenium"], Is.EqualTo(expectedBrowser.ws.selenium));
+            Assert.That(browser?.DebugPort, Is.EqualTo(expectedBrowser.debug_port));
+            Assert.That(browser?.WebDriver, Is.EqualTo(expectedBrowser.webdriver));
+        });
     }
 
     [Test]
