@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AdsPower.LocalApi.Models;
+namespace AdsPower.LocalApi.Browser.Models;
 
 /// <summary>
 /// Represents the data related to browser automation interfaces.
