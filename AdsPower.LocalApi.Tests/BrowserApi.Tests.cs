@@ -185,6 +185,95 @@ public class BrowserApiTests : ApiTestBase
 
     #endregion
 
+    #region GetStatusAsync
+
+    [Test]
+    public async Task GetStatus_Success()
+    {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+
+        var response = new
+        {
+            code = 0,
+            data = new
+            {
+                status = "Active",
+                ws = new
+                {
+                    selenium = "127.0.0.1:xxxx",
+                    puppeteer = "ws://127.0.0.1:xxxx/devtools/browser/xxxxxx"
+                }
+            },
+            msg = "success"
+        };
+
+        var result = await MockResponse<BrowserRequest, BrowserStatusResponse>(
+            "/api/v1/browser/active",
+            apiClient => apiClient.Browser.GetStatusAsync,
+            request,
+            response
+        );
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+            Assert.That(result.Data, Is.Not.Null);
+            Assert.That(result.Data?.Status, Is.EqualTo(response.data.status));
+            Assert.That(result.Data?.Websockets?["selenium"], Is.EqualTo(response.data.ws.selenium));
+            Assert.That(result.Data?.Websockets?["puppeteer"], Is.EqualTo(response.data.ws.puppeteer));
+        });
+    }
+
+    [Test]
+    public async Task GetStatus_Failed()
+    {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+
+        var response = new
+        {
+            code = -1,
+            data = new { },
+            msg = "failed"
+        };
+
+        var result = await MockResponse<BrowserRequest, BrowserStatusResponse>(
+            "/api/v1/browser/active",
+            apiClient => apiClient.Browser.GetStatusAsync,
+            request,
+            response
+        );
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+            Assert.That(result.Data, Is.Null);
+        });
+    }
+
+    [Test]
+    public void GetStatus_Canceled()
+    {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+
+        var response = new
+        {
+            code = -1,
+            data = new { },
+            msg = "failed"
+        };
+
+        TestCancellationToken<BrowserRequest, BrowserStatusResponse>(
+            "/api/v1/browser/active",
+            apiClient => apiClient.Browser.GetStatusAsync,
+            request,
+            response
+        );
+    }
+
+    #endregion
+
     #region GetStatusListAsync
 
     [Test]
@@ -226,7 +315,7 @@ public class BrowserApiTests : ApiTestBase
 
             Assert.That(result.Data, Is.Not.Null);
         });
-        
+
         Assert.That(result.Data?.Browsers, Is.Not.Null);
         Assert.That(result.Data?.Browsers.Count, Is.EqualTo(response.data.list.Length));
 
