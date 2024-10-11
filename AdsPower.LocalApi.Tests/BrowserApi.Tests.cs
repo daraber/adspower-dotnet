@@ -1,6 +1,7 @@
 ﻿using AdsPower.LocalApi.Browser;
 using AdsPower.LocalApi.Browser.Requests;
 using AdsPower.LocalApi.Browser.Responses;
+using AdsPower.LocalApi.Responses;
 using AdsPower.LocalApi.Tests.Internal;
 
 namespace AdsPower.LocalApi.Tests;
@@ -98,6 +99,78 @@ public class BrowserApiTests : ApiTestBase
         TestCancellationToken<StartBrowserRequest, StartBrowserResponse>(
             "api/v1/browser/start",
             apiClient => apiClient.Browser.StartAsync,
+            request,
+            response
+        );
+    }
+
+    [Test]
+    public async Task Stop_Success()
+    {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+
+        var response = new
+        {
+            code = 0,
+            data = new { },
+            msg = "success"
+        };
+
+        var result = await MockResponse<BrowserRequest, LocalApiResponse>(
+            "/api/v1/browser/stop",
+            apiClient => apiClient.Browser.StopAsync,
+            request,
+            response
+        );
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+        });
+    }
+
+    [Test]
+    public async Task Stop_Failed()
+    {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+
+        var response = new
+        {
+            code = -1,
+            data = new { },
+            msg = "failed"
+        };
+
+        var result = await MockResponse<BrowserRequest, LocalApiResponse>(
+            "/api/v1/browser/stop",
+            apiClient => apiClient.Browser.StopAsync,
+            request,
+            response
+        );
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+        });
+    }
+
+    [Test]
+    public void Stop_Canceled()
+    {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+
+        var response = new
+        {
+            code = -1,
+            data = new { },
+            msg = "failed"
+        };
+
+        TestCancellationToken<BrowserRequest, LocalApiResponse>(
+            "/api/v1/browser/stop",
+            apiClient => apiClient.Browser.StopAsync,
             request,
             response
         );
