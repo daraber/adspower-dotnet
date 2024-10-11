@@ -34,11 +34,6 @@ public record UpdateProfileRequest : ProfileRequest
     public string? City { get; init; }
 
     /// <summary>
-    /// Notes or remarks about the account.
-    /// </summary>
-    public string? Remark { get; init; }
-
-    /// <summary>
     /// Application category ID. Pass 0 to follow team application.
     /// Requires version 2.6.6.5 or above.
     /// </summary>
