@@ -2,7 +2,6 @@ using System.Net.Http.Json;
 using System.Web;
 using AdsPower.LocalApi.Browser;
 using AdsPower.LocalApi.Internal;
-using AdsPower.LocalApi.Requests;
 using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi;
