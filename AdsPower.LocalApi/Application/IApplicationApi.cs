@@ -1,6 +1,6 @@
 using AdsPower.LocalApi.Requests;
 
-namespace AdsPower.LocalApi;
+namespace AdsPower.LocalApi.Application;
 
 public interface IApplicationApi
 {
