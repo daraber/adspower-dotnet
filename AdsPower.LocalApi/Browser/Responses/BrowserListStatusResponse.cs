@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 using AdsPower.LocalApi.Browser.Models;
+using AdsPower.LocalApi.Internal;
 using AdsPower.LocalApi.Responses;
 
 namespace AdsPower.LocalApi.Browser.Responses;
 
-public record BrowserStatusResponse : LocalApiResponse<BrowserStatusList>
+public record BrowserStatusListResponse : LocalApiResponse<BrowserStatusList>
 {
-    [JsonPropertyName("list")]
+    [JsonConverter(typeof(EmptyObjectToNullConverter<BrowserStatusList>))]
     public override BrowserStatusList? Data { get; init; }
 }

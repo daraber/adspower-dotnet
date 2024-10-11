@@ -1,4 +1,5 @@
 ﻿using AdsPower.LocalApi.Browser;
+using AdsPower.LocalApi.Browser.Models;
 using AdsPower.LocalApi.Browser.Requests;
 using AdsPower.LocalApi.Browser.Responses;
 using AdsPower.LocalApi.Responses;
@@ -12,6 +13,8 @@ namespace AdsPower.LocalApi.Tests;
 [MockTest]
 public class BrowserApiTests : ApiTestBase
 {
+    #region StartAsync
+
     [Test]
     public async Task Start_Success()
     {
@@ -104,6 +107,10 @@ public class BrowserApiTests : ApiTestBase
         );
     }
 
+    #endregion
+
+    #region StopAsync
+
     [Test]
     public async Task Stop_Success()
     {
@@ -175,4 +182,57 @@ public class BrowserApiTests : ApiTestBase
             response
         );
     }
+
+    #endregion
+
+    #region GetStatusListAsync
+
+    [Test]
+    public async Task GetStatusList_Success()
+    {
+        throw new NotImplementedException();
+    }
+
+    [Test]
+    public async Task GetStatusList_Failed()
+    {
+        var response = new
+        {
+            code = -1,
+            data = new { },
+            msg = "failed"
+        };
+
+        var result = await MockResponse<BrowserStatusListResponse>(
+            "/api/v1/browser/local-active",
+            apiClient => apiClient.Browser.GetStatusListAsync,
+            response
+        );
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+            Assert.That(result.Data, Is.Null);
+        });
+    }
+
+    [Test]
+    public void GetStatusList_Canceled()
+    {
+        var response = new
+        {
+            code = -1,
+            data = new { },
+            msg = "failed"
+        };
+
+        TestCancellationToken<BrowserStatusListResponse>(
+            "/api/v1/browser/local-active",
+            apiClient => apiClient.Browser.GetStatusListAsync,
+            response
+        );
+    }
+
+    #endregion
 }

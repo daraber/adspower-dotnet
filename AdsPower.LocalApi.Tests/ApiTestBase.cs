@@ -35,6 +35,21 @@ public abstract class ApiTestBase
         return apiResponse;
     }
     
+    protected void TestCancellationToken<TResponse>(
+        string endpoint,
+        Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
+        object responseContent
+    )
+    {
+        using var cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenSource.Cancel();
+
+        Assert.ThrowsAsync<TaskCanceledException>(async () =>
+        {
+            await MockResponse(endpoint, call, responseContent, cancellationTokenSource.Token);
+        });
+    }
+    
     protected void TestCancellationToken<TRequest, TResponse>(
         string endpoint,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,

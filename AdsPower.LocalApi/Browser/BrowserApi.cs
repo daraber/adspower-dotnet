@@ -31,9 +31,9 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
         return apiClient.GetAsync<BrowserStatusResponse>(path, request, cancellationToken);
     }
 
-    public Task<BrowserStatusList> GetStatusListAsync(CancellationToken cancellationToken = default)
+    public Task<BrowserStatusListResponse> GetStatusListAsync(CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/browser/local-active";
-        return apiClient.GetAsync<BrowserStatusList>(path, cancellationToken);
+        return apiClient.GetAsync<BrowserStatusListResponse>(path, cancellationToken);
     }
 }
