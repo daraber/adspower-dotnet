@@ -9,7 +9,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
 
     public IBrowserApi Browser => new BrowserApi(this);
 
-    public async Task<LocalApiResponse> GetConnectionStatus(CancellationToken cancellationToken = default)
+    public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
         return await GetAsync<LocalApiResponse>("status", cancellationToken);
     }
