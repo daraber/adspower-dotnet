@@ -22,13 +22,13 @@ public class ProfileApi(LocalApiClient client) : IProfileApi
         return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public async Task<ListProfilesResponse> ListAsync(
+    public async Task<ProfilesListResponse> ListAsync(
         MoveProfileRequest request,
         CancellationToken cancellationToken = default
     )
     {
         const string path = "/api/v1/user/list";
-        return await client.PostAsync<ListProfilesResponse>(path, request, cancellationToken);
+        return await client.PostAsync<ProfilesListResponse>(path, request, cancellationToken);
     }
 
     public async Task<LocalApiResponse> DeleteAsync(

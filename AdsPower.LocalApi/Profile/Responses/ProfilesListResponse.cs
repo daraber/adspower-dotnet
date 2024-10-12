@@ -5,7 +5,7 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile.Responses;
 
-public record ListProfilesResponse : LocalApiListResponse<ProfileInfo>
+public record ProfilesListResponse : LocalApiListResponse<ProfileInfo>
 {
     [JsonConverter(typeof(EmptyObjectToNullListConverter<ProfileInfo>))]
     public override LocalApiList<ProfileInfo>? Data { get; init; }
