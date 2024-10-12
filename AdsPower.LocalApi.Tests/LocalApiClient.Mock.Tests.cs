@@ -21,7 +21,7 @@ public class LocalApiClientMockTests : ApiTestBase
         await TestGetConnectionStatus("status", -1, "failed");
     }
     
-    private async Task TestGetConnectionStatus(string endpoint, int code, string message)
+    private async Task TestGetConnectionStatus(string path, int code, string message)
     {
         var response = new
         {
@@ -30,7 +30,7 @@ public class LocalApiClientMockTests : ApiTestBase
         };
 
         var result = await MockResponse<LocalApiResponse>(
-            endpoint,
+            path,
             apiClient => apiClient.GetConnectionStatusAsync,
             response
         );
