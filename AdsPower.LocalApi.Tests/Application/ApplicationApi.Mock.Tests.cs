@@ -48,15 +48,16 @@ public class ApplicationApiTests : ApiTestBase
             Assert.That(result.Code, Is.EqualTo(response.code));
             Assert.That(result.Message, Is.EqualTo(response.msg));
             Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Data?.Applications, Is.Not.Null);
-            Assert.That(result.Data?.Applications.Count, Is.EqualTo(1));
+            Assert.That(result.Data?.List, Is.Not.Null);
+            Assert.That(result.Data?.List.Count, Is.EqualTo(response.data.list.Length));
         });
 
-        var category = result.Data?.Applications[0];
-        var expectedCategory = response.data.list[0];
+        var category = result.Data?.List.First();
+        var expectedCategory = response.data.list.First();
 
         Assert.Multiple(() =>
         {
+            Assert.That(category, Is.Not.Null);
             Assert.That(category?.Id, Is.EqualTo(expectedCategory.id));
             Assert.That(category?.Name, Is.EqualTo(expectedCategory.name));
             Assert.That(category?.Remark, Is.EqualTo(expectedCategory.remark));
