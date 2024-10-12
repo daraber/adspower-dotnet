@@ -76,20 +76,10 @@ public class ApplicationApiTests : ApiTestBase
     [Test]
     public void GetCategoryList_Canceled()
     {
-        var request = new ListApplicationsRequest();
-
-        var response = new
-        {
-            code = -1,
-            data = new { },
-            msg = "failed"
-        };
-
         TestCancellationToken<ListApplicationsRequest, ApplicationListResponse>(
             "/api/v1/application/list",
             apiClient => apiClient.Application.ListAsync,
-            request,
-            response
+            new ListApplicationsRequest()
         );
     }
 }
