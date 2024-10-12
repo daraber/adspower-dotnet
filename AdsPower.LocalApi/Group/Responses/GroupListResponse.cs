@@ -5,7 +5,7 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Group.Responses;
 
-public record ListGroupsResponse : LocalApiResponse<GroupList>
+public record GroupListResponse : LocalApiResponse<GroupList>
 {
     [JsonConverter(typeof(EmptyObjectToNullConverter<GroupList>))]
     public override GroupList? Data { get; init; }

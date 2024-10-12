@@ -18,9 +18,9 @@ public class GroupApi(LocalApiClient apiClient) : IGroupApi
         return apiClient.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public Task<ListGroupsResponse> ListAsync(ListGroupsRequest request, CancellationToken cancellationToken = default)
+    public Task<GroupListResponse> ListAsync(ListGroupsRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/group/list";
-        return apiClient.GetAsync<ListGroupsResponse>(path, request, cancellationToken);
+        return apiClient.GetAsync<GroupListResponse>(path, request, cancellationToken);
     }
 }

@@ -13,7 +13,7 @@ public record Application
     public required string Name { get; init; }
 
     /// <summary>
-    /// Notes or remarks about the account.
+    /// Notes or remarks about the application category.
     /// </summary>
     public string? Remark { get; init; }
 }
