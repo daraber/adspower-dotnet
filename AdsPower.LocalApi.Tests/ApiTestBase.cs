@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using AdsPower.LocalApi.Shared;
 using RichardSzalay.MockHttp;
 
 namespace AdsPower.LocalApi.Tests;
@@ -6,7 +7,39 @@ namespace AdsPower.LocalApi.Tests;
 public abstract class ApiTestBase
 {
     private const string Url = "http://localhost";
+    
+    protected async Task MockFailedResponse<TRequest, TResponse>(
+        string path,
+        Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
+        TRequest request,
+        CancellationToken cancellationToken = default
+    ) where TResponse : LocalApiResponse
+    {
+        var response = new
+        {
+            code = -1,
+            data = new { },
+            msg = "failed"
+        };
 
+        
+        using var mockApiClient = CreateMockClient(path, response);
+        var apiFunction = call(mockApiClient);
+
+        var result = await apiFunction(request, cancellationToken);
+        
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+        });
+        
+        if(result is LocalApiResponse<object> localApiResponse)
+        {
+            Assert.That(localApiResponse.Data, Is.Null);
+        }
+    }
+    
     protected async Task<TResponse> MockResponse<TResponse>(
         string path,
         Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
