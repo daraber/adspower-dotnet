@@ -111,7 +111,12 @@ public abstract class ApiTestBase
         using var cancellationTokenSource = new CancellationTokenSource();
         cancellationTokenSource.Cancel();
 
-        var response = new { };
+        var response = new
+        {
+            code = -1,
+            data = new { },
+            msg = "failed"
+        };
 
         Assert.ThrowsAsync<TaskCanceledException>(async () =>
         {
