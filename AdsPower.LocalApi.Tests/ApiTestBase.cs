@@ -8,13 +8,13 @@ public abstract class ApiTestBase
     private const string Url = "http://localhost";
 
     protected async Task<TResponse> MockResponse<TResponse>(
-        string endpoint,
+        string path,
         Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
         object responseContent,
         CancellationToken cancellationToken = default
     )
     {
-        using var mockApiClient = CreateMockClient(endpoint, responseContent);
+        using var mockApiClient = CreateMockClient(path, responseContent);
         var apiFunction = call(mockApiClient);
 
         var apiResponse = await apiFunction(cancellationToken);
@@ -22,14 +22,14 @@ public abstract class ApiTestBase
     }
 
     protected async Task<TResponse> MockResponse<TRequest, TResponse>(
-        string endpoint,
+        string path,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
         TRequest request,
         object responseContent,
         CancellationToken cancellationToken = default
     )
     {
-        using var mockApiClient = CreateMockClient(endpoint, responseContent);
+        using var mockApiClient = CreateMockClient(path, responseContent);
         var apiFunction = call(mockApiClient);
 
         var apiResponse = await apiFunction(request, cancellationToken);

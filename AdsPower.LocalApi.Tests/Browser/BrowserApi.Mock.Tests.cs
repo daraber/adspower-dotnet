@@ -36,7 +36,7 @@ public class BrowserApiMockTests : ApiTestBase
         };
 
         var result = await MockResponse<StartBrowserRequest, StartBrowserResponse>(
-            "api/v1/browser/start",
+            "/api/v1/browser/start",
             apiClient => apiClient.Browser.StartAsync,
             request,
             response
@@ -72,7 +72,7 @@ public class BrowserApiMockTests : ApiTestBase
         };
 
         var result = await MockResponse<StartBrowserRequest, StartBrowserResponse>(
-            "api/v1/browser/start",
+            "/api/v1/browser/start",
             apiClient => apiClient.Browser.StartAsync,
             request,
             response
