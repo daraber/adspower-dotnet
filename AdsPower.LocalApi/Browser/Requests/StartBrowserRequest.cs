@@ -59,7 +59,7 @@ public record StartBrowserRequest : BrowserRequest
     public override Dictionary<string, string> GetQueryParameters()
     {
         var parameters = base.GetQueryParameters();
-        
+
         if (OpenTabs.HasValue) parameters.Add("open_tabs", OpenTabs.Value.ToString());
         if (IpTab.HasValue) parameters.Add("ip_tab", IpTab.Value.ToString());
         if (NewFirstTab.HasValue) parameters.Add("new_first_tab", NewFirstTab.Value.ToString());
@@ -69,7 +69,7 @@ public record StartBrowserRequest : BrowserRequest
         if (ClearCacheAfterClosing.HasValue) parameters.Add("clear_cache_after_closing", ClearCacheAfterClosing.Value.ToString());
         if (EnablePasswordSaving.HasValue) parameters.Add("enable_password_saving", EnablePasswordSaving.Value.ToString());
         if (CdpMask.HasValue) parameters.Add("cdp_mask", CdpMask.Value.ToString());
-        
+
         return parameters;
     }
 }
