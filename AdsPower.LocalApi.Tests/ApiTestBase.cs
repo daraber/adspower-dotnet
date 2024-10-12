@@ -8,6 +8,32 @@ public abstract class ApiTestBase
 {
     private const string Url = "http://localhost";
 
+    protected async Task MockSuccessResponse<TRequest, TResponse>(
+        string path,
+        Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
+        TRequest request,
+        CancellationToken cancellationToken = default
+    ) where TResponse : LocalApiResponse
+    {
+        var response = new
+        {
+            code = 0,
+            data = new { },
+            msg = "success"
+        };
+
+        using var mockApiClient = CreateMockClient(path, response);
+        var apiFunction = call(mockApiClient);
+
+        var result = await apiFunction(request, cancellationToken);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+        });
+    }
+
     protected async Task<TData> MockSuccessResponse<TRequest, TResponse, TData>(
         string path,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
