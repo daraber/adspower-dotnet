@@ -3,7 +3,6 @@ using System.Web;
 using AdsPower.LocalApi.Application;
 using AdsPower.LocalApi.Browser;
 using AdsPower.LocalApi.Group;
-using AdsPower.LocalApi.Internal;
 using AdsPower.LocalApi.Profile;
 using AdsPower.LocalApi.Shared;
 
