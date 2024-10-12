@@ -37,7 +37,7 @@ public abstract class ApiTestBase
     }
 
     protected void TestCancellationToken<TResponse>(
-        string endpoint,
+        string path,
         Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
         object responseContent
     )
@@ -47,12 +47,12 @@ public abstract class ApiTestBase
 
         Assert.ThrowsAsync<TaskCanceledException>(async () =>
         {
-            await MockResponse(endpoint, call, responseContent, cancellationTokenSource.Token);
+            await MockResponse(path, call, responseContent, cancellationTokenSource.Token);
         });
     }
 
     protected void TestCancellationToken<TRequest, TResponse>(
-        string endpoint,
+        string path,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
         TRequest request,
         object responseContent
@@ -63,7 +63,7 @@ public abstract class ApiTestBase
 
         Assert.ThrowsAsync<TaskCanceledException>(async () =>
         {
-            await MockResponse(endpoint, call, request, responseContent, cancellationTokenSource.Token);
+            await MockResponse(path, call, request, responseContent, cancellationTokenSource.Token);
         });
     }
     
