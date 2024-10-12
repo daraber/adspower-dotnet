@@ -4,7 +4,7 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile;
 
-public class ProfileApi(LocalApiClient client) : IProfileApi
+public class ProfileApi(ILocalApiClient client) : IProfileApi
 {
     public async Task<CreateProfileResponse> CreateAsync(CreateProfileRequest request,
         CancellationToken cancellationToken = default)
