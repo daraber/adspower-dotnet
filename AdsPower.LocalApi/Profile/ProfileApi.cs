@@ -6,8 +6,10 @@ namespace AdsPower.LocalApi.Profile;
 
 public class ProfileApi(ILocalApiClient client) : IProfileApi
 {
-    public async Task<CreateProfileResponse> CreateAsync(CreateProfileRequest request,
-        CancellationToken cancellationToken = default)
+    public async Task<CreateProfileResponse> CreateAsync(
+        CreateProfileRequest request,
+        CancellationToken cancellationToken = default
+    )
     {
         const string path = "/api/v1/user/create";
         return await client.PostAsync<CreateProfileResponse>(path, request, cancellationToken);
