@@ -68,13 +68,13 @@ public abstract class ApiTestBase
     }
     
 
-    private LocalApiClient CreateMockClient(string endpoint, object content)
+    private LocalApiClient CreateMockClient(string path, object content)
     {
         var contentString = JsonSerializer.Serialize(content);
 
         var mockHttp = new MockHttpMessageHandler();
 
-        mockHttp.When($"{Url}/{endpoint}")
+        mockHttp.When($"{Url}{path}")
             .Respond("application/json", contentString);
 
         return new LocalApiClient(Url, mockHttp);
