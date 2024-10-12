@@ -4,7 +4,7 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Browser;
 
-public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
+public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
 {
     public async Task<StartBrowserResponse> StartAsync(
         StartBrowserRequest request,
@@ -17,7 +17,7 @@ public class BrowserApi(LocalApiClient apiClient) : IBrowserApi
     public async Task<LocalApiResponse> StopAsync(BrowserRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/browser/stop";
-        return await apiClient.GetAsync<LocalApiResponse>(path, cancellationToken);
+        return await apiClient.GetAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
     public Task<BrowserStatusResponse> GetStatusAsync(
