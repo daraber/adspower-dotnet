@@ -1,4 +1,5 @@
 using AdsPower.LocalApi.Internal;
+using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Group.Requests;
 

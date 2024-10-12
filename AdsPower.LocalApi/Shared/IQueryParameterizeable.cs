@@ -1,4 +1,4 @@
-﻿namespace AdsPower.LocalApi.Internal;
+﻿namespace AdsPower.LocalApi.Shared;
 
 public interface IQueryParameterizeable
 {
