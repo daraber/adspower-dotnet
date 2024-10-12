@@ -1,10 +1,10 @@
-﻿using AdsPower.LocalApi.Group;
+﻿using AdsPower.LocalApi.Profile;
 using AdsPower.LocalApi.Tests.Internal;
 
 namespace AdsPower.LocalApi.Tests.Profile;
 
 [TestFixture]
-[TestOf(typeof(GroupApi))]
+[TestOf(typeof(ProfileApi))]
 [Parallelizable(ParallelScope.All)]
 [MockTest]
 public class ProfileApiMockTests : ApiTestBase
