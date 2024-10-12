@@ -5,5 +5,5 @@ namespace AdsPower.LocalApi.Application;
 
 public interface IApplicationApi
 {
-    Task<ListApplicationResponse> ListAsync(ListApplicationsRequest request, CancellationToken cancellationToken = default);
+    Task<ApplicationListResponse> ListAsync(ListApplicationsRequest request, CancellationToken cancellationToken = default);
 }

@@ -36,7 +36,7 @@ public class ApplicationApiTests : ApiTestBase
             }
         };
 
-        var result = await MockResponse<ListApplicationsRequest, ListApplicationResponse>(
+        var result = await MockResponse<ListApplicationsRequest, ApplicationListResponse>(
             "/api/v1/application/list",
             apiClient => apiClient.Application.ListAsync,
             request,
@@ -75,7 +75,7 @@ public class ApplicationApiTests : ApiTestBase
             msg = "failed"
         };
 
-        var result = await MockResponse<ListApplicationsRequest, ListApplicationResponse>(
+        var result = await MockResponse<ListApplicationsRequest, ApplicationListResponse>(
             "/api/v1/application/list",
             apiClient => apiClient.Application.ListAsync,
             request,
@@ -102,7 +102,7 @@ public class ApplicationApiTests : ApiTestBase
             msg = "failed"
         };
 
-        TestCancellationToken<ListApplicationsRequest, ListApplicationResponse>(
+        TestCancellationToken<ListApplicationsRequest, ApplicationListResponse>(
             "/api/v1/application/list",
             apiClient => apiClient.Application.ListAsync,
             request,

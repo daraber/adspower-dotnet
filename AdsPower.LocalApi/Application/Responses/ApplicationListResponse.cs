@@ -5,7 +5,7 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Application.Responses;
 
-public record ListApplicationResponse : LocalApiResponse<ApplicationList>
+public record ApplicationListResponse : LocalApiResponse<ApplicationList>
 {
     [JsonConverter(typeof(EmptyObjectToNullConverter<ApplicationList>))]
     public override ApplicationList? Data { get; init; }
