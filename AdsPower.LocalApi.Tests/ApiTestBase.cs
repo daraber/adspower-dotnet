@@ -6,7 +6,7 @@ namespace AdsPower.LocalApi.Tests;
 public abstract class ApiTestBase
 {
     private const string Url = "http://localhost";
-    
+
     protected async Task<TResponse> MockResponse<TResponse>(
         string endpoint,
         Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
@@ -20,6 +20,7 @@ public abstract class ApiTestBase
         var apiResponse = await apiFunction(cancellationToken);
         return apiResponse;
     }
+
     protected async Task<TResponse> MockResponse<TRequest, TResponse>(
         string endpoint,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
@@ -34,7 +35,7 @@ public abstract class ApiTestBase
         var apiResponse = await apiFunction(request, cancellationToken);
         return apiResponse;
     }
-    
+
     protected void TestCancellationToken<TResponse>(
         string endpoint,
         Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
@@ -49,7 +50,7 @@ public abstract class ApiTestBase
             await MockResponse(endpoint, call, responseContent, cancellationTokenSource.Token);
         });
     }
-    
+
     protected void TestCancellationToken<TRequest, TResponse>(
         string endpoint,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
@@ -66,6 +67,7 @@ public abstract class ApiTestBase
         });
     }
     
+
     private LocalApiClient CreateMockClient(string endpoint, object content)
     {
         var contentString = JsonSerializer.Serialize(content);
