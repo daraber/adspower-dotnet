@@ -23,27 +23,32 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
         return await GetAsync<LocalApiResponse>("status", cancellationToken);
     }
 
-    internal async Task<T> GetAsync<T>(
+    public async Task<T> GetAsync<T>(
         string path,
         IQueryParameterizeable request,
         CancellationToken cancellationToken = default
     ) where T : LocalApiResponse
     {
-        var queryString = request.GetQueryParameters()
-            .Aggregate("", (current, pair) => $"{current}&{pair.Key}={HttpUtility.UrlEncode(pair.Value)}");
+        var query = "?";
 
-        return await GetAsync<T>($"{path}?{queryString}", cancellationToken);
+        foreach (var (key, value) in request.GetQueryParameters())
+        {
+            query += $"{key}={HttpUtility.UrlEncode(value)}&";
+        }
+        
+        return await GetAsync<T>($"{path}{query}", cancellationToken);
     }
 
     internal async Task<T> GetAsync<T>(string path, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
-        using var response = await _httpClient.GetAsync($"{url}/{path}", cancellationToken);
+        var uri = new Uri($"{url}{path}");
+        using var response = await _httpClient.GetAsync(uri, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
             var message =
-                $"Bad HTTP response from {path} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
+                $"Bad HTTP response from {uri} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
 
             throw new HttpRequestException(message);
         }
@@ -51,14 +56,14 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
         if (result is null)
         {
-            var message = $"Deserialized HTTP response from {path} of type {typeof(T).Name} is null";
+            var message = $"Deserialized HTTP response from {uri} of type {typeof(T).Name} is null";
             throw new HttpRequestException(message);
         }
 
         return result;
     }
 
-    internal async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
+    public async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
         using var response = await _httpClient.PostAsJsonAsync($"{url}/{path}", request, cancellationToken);
