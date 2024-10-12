@@ -4,6 +4,9 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile;
 
+/// <summary>
+/// Defines the API for profile operations.
+/// </summary>
 public interface IProfileApi
 {
     Task<CreateProfileResponse> CreateAsync(CreateProfileRequest request, CancellationToken cancellationToken = default);

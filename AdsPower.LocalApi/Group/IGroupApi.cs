@@ -4,6 +4,9 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Group;
 
+/// <summary>
+/// Defines the API for group operations.
+/// </summary>
 public interface IGroupApi
 {
     public Task<CreateGroupResponse> CreateAsync(GroupRequest request, CancellationToken cancellationToken = default);
