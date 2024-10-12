@@ -25,7 +25,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApi
     public async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
-        using var response = await _httpClient.PostAsJsonAsync($"{url}/{path}", request, cancellationToken);
+        using var response = await _httpClient.PostAsJsonAsync($"{url}{path}", request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
