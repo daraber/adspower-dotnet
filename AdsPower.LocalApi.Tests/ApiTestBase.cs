@@ -39,6 +39,40 @@ public abstract class ApiTestBase
         }
     }
 
+    protected async Task<TResponse> MockSuccessResponse<TRequest, TResponse>(
+        string path,
+        Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
+        TRequest request,
+        object data,
+        CancellationToken cancellationToken = default
+    ) where TResponse : LocalApiResponse
+    {
+        var response = new
+        {
+            code = 0,
+            data,
+            msg = "success"
+        };
+
+        using var mockApiClient = CreateMockClient(path, response);
+        var apiFunction = call(mockApiClient);
+
+        var result = await apiFunction(request, cancellationToken);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Code, Is.EqualTo(response.code));
+            Assert.That(result.Message, Is.EqualTo(response.msg));
+        });
+
+        if (result is LocalApiResponse<object> localApiResponse)
+        {
+            Assert.That(localApiResponse.Data, Is.Not.Null);
+        }
+
+        return result;
+    }
+
     protected async Task<TResponse> MockResponse<TResponse>(
         string path,
         Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
@@ -71,19 +105,19 @@ public abstract class ApiTestBase
     protected void TestCancellationToken<TRequest, TResponse>(
         string path,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
-        TRequest request,
-        object responseContent
+        TRequest request
     )
     {
         using var cancellationTokenSource = new CancellationTokenSource();
         cancellationTokenSource.Cancel();
 
+        var response = new { };
+
         Assert.ThrowsAsync<TaskCanceledException>(async () =>
         {
-            await MockResponse(path, call, request, responseContent, cancellationTokenSource.Token);
+            await MockResponse(path, call, request, response, cancellationTokenSource.Token);
         });
     }
-
 
     private LocalApiClient CreateMockClient(string path, object content)
     {
