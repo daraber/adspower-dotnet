@@ -3,7 +3,7 @@ using AdsPower.LocalApi.Application.Responses;
 
 namespace AdsPower.LocalApi.Application;
 
-public class ApplicationApi(LocalApiClient apiClient) : IApplicationApi
+public class ApplicationApi(ILocalApiClient apiClient) : IApplicationApi
 {
     public Task<ApplicationListResponse> ListAsync(
         ListApplicationsRequest request,
