@@ -59,20 +59,10 @@ public class GroupApiMockTests : ApiTestBase
     [Test]
     public void Create_Canceled()
     {
-        var request = new GroupRequest { GroupName = Guid.NewGuid().ToString() };
-
-        var response = new
-        {
-            code = -1,
-            data = new { },
-            msg = "failed"
-        };
-
         TestCancellationToken<GroupRequest, CreateGroupResponse>(
             "/api/v1/group/create",
             apiClient => apiClient.Group.CreateAsync,
-            request,
-            response
+            new GroupRequest { GroupName = Guid.NewGuid().ToString() }
         );
     }
 }
