@@ -62,28 +62,11 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task Start_Failed()
     {
-        var request = new StartBrowserRequest { UserId = Guid.NewGuid().ToString() };
-
-        var response = new
-        {
-            code = -1,
-            data = new { },
-            msg = "failed"
-        };
-
-        var result = await MockResponse<StartBrowserRequest, StartBrowserResponse>(
+        await MockFailedResponse<StartBrowserRequest, StartBrowserResponse>(
             "/api/v1/browser/start",
             apiClient => apiClient.Browser.StartAsync,
-            request,
-            response
+            new StartBrowserRequest { UserId = Guid.NewGuid().ToString() }
         );
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-        });
     }
 
     [Test]
@@ -139,27 +122,11 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task Stop_Failed()
     {
-        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
-
-        var response = new
-        {
-            code = -1,
-            data = new { },
-            msg = "failed"
-        };
-
-        var result = await MockResponse<BrowserRequest, LocalApiResponse>(
+        await MockFailedResponse<BrowserRequest, LocalApiResponse>(
             "/api/v1/browser/stop",
             apiClient => apiClient.Browser.StopAsync,
-            request,
-            response
+           new BrowserRequest { UserId = Guid.NewGuid().ToString() }
         );
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-        });
     }
 
     [Test]
@@ -227,28 +194,11 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task GetStatus_Failed()
     {
-        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
-
-        var response = new
-        {
-            code = -1,
-            data = new { },
-            msg = "failed"
-        };
-
-        var result = await MockResponse<BrowserRequest, BrowserStatusResponse>(
+        await MockFailedResponse<BrowserRequest, BrowserStatusResponse>(
             "/api/v1/browser/active",
             apiClient => apiClient.Browser.GetStatusAsync,
-            request,
-            response
+            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
         );
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-            Assert.That(result.Data, Is.Null);
-        });
     }
 
     [Test]
@@ -337,28 +287,11 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task GetStatusList_Failed()
     {
-        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
-        
-        var response = new
-        {
-            code = -1,
-            data = new { },
-            msg = "failed"
-        };
-
-        var result = await MockResponse<BrowserRequest,BrowserStatusListResponse>(
+         await MockFailedResponse<BrowserRequest,BrowserStatusListResponse>(
             "/api/v1/browser/local-active",
             apiClient => apiClient.Browser.GetStatusListAsync,
-            request,
-            response
+            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
         );
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-            Assert.That(result.Data, Is.Null);
-        });
     }
 
     [Test]

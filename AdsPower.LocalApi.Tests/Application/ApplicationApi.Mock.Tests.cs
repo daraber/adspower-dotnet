@@ -66,28 +66,11 @@ public class ApplicationApiTests : ApiTestBase
     [Test]
     public async Task GetCategoryList_Failed()
     {
-        var request = new ListApplicationsRequest();
-
-        var response = new
-        {
-            code = -1,
-            data = new { },
-            msg = "failed"
-        };
-
-        var result = await MockResponse<ListApplicationsRequest, ApplicationListResponse>(
+        await MockFailedResponse<ListApplicationsRequest, ApplicationListResponse>(
             "/api/v1/application/list",
             apiClient => apiClient.Application.ListAsync,
-            request,
-            response
+            new ListApplicationsRequest()
         );
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-            Assert.That(result.Data, Is.Null);
-        });
     }
 
     [Test]
