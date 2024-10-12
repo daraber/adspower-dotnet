@@ -7,7 +7,7 @@ namespace AdsPower.LocalApi.Tests;
 public abstract class ApiTestBase
 {
     private const string Url = "http://localhost";
-    
+
     protected async Task MockFailedResponse<TRequest, TResponse>(
         string path,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
@@ -22,24 +22,23 @@ public abstract class ApiTestBase
             msg = "failed"
         };
 
-        
         using var mockApiClient = CreateMockClient(path, response);
         var apiFunction = call(mockApiClient);
 
         var result = await apiFunction(request, cancellationToken);
-        
+
         Assert.Multiple(() =>
         {
             Assert.That(result.Code, Is.EqualTo(response.code));
             Assert.That(result.Message, Is.EqualTo(response.msg));
         });
-        
-        if(result is LocalApiResponse<object> localApiResponse)
+
+        if (result is LocalApiResponse<object> localApiResponse)
         {
             Assert.That(localApiResponse.Data, Is.Null);
         }
     }
-    
+
     protected async Task<TResponse> MockResponse<TResponse>(
         string path,
         Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
@@ -84,7 +83,7 @@ public abstract class ApiTestBase
             await MockResponse(path, call, request, responseContent, cancellationTokenSource.Token);
         });
     }
-    
+
 
     private LocalApiClient CreateMockClient(string path, object content)
     {
