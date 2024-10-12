@@ -9,7 +9,7 @@ namespace AdsPower.LocalApi.Tests.Application;
 [TestOf(typeof(ApplicationApi))]
 [Parallelizable(ParallelScope.All)]
 [MockTest]
-public class ApplicationApiMockTests : ApiTestBase
+public class ApplicationApiTests : ApiTestBase
 {
     [Test]
     public async Task GetCategoryList_Success()
