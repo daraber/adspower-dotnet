@@ -5,8 +5,8 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Browser.Responses;
 
-public record BrowserStatusListResponse : LocalApiResponse<BrowserStatusList>
+public record BrowserStatusListResponse : LocalApiListResponse<UserBrowserData>
 {
-    [JsonConverter(typeof(EmptyObjectToNullConverter<BrowserStatusList>))]
-    public override BrowserStatusList? Data { get; init; }
+    [JsonConverter(typeof(EmptyObjectToNullListConverter<UserBrowserData>))]
+    public override LocalApiList<UserBrowserData>? Data { get; init; }
 }

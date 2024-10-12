@@ -315,10 +315,10 @@ public class BrowserApiTests : ApiTestBase
             Assert.That(result.Data, Is.Not.Null);
         });
 
-        Assert.That(result.Data?.Browsers, Is.Not.Null);
-        Assert.That(result.Data?.Browsers.Count, Is.EqualTo(response.data.list.Length));
+        Assert.That(result.Data?.List, Is.Not.Null);
+        Assert.That(result.Data?.List.Count, Is.EqualTo(response.data.list.Length));
 
-        var browser = result.Data?.Browsers[0];
+        var browser = result.Data?.List[0];
         var expectedBrowser = response.data.list[0];
 
         Assert.Multiple(() =>
