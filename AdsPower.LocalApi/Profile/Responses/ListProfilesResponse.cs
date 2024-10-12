@@ -5,11 +5,11 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile.Responses;
 
-public record ListProfilesResponse : LocalApiResponse<ProfileInfoList>
+public record ListProfilesResponse : LocalApiListResponse<ProfileInfo>
 {
-    [JsonConverter(typeof(EmptyObjectToNullConverter<ProfileInfoList>))]
-    public override ProfileInfoList? Data { get; init; }
-    
+    [JsonConverter(typeof(EmptyObjectToNullListConverter<ProfileInfo>))]
+    public override LocalApiList<ProfileInfo>? Data { get; init; }
+
     [JsonPropertyName("page")] public int Page { get; init; }
     [JsonPropertyName("page_size")] public int PageSize { get; init; }
 }
