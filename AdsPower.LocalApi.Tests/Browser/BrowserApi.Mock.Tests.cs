@@ -1,4 +1,5 @@
 ﻿using AdsPower.LocalApi.Browser;
+using AdsPower.LocalApi.Browser.Models;
 using AdsPower.LocalApi.Browser.Requests;
 using AdsPower.LocalApi.Browser.Responses;
 using AdsPower.LocalApi.Shared;
@@ -19,43 +20,31 @@ public class BrowserApiMockTests : ApiTestBase
     {
         var request = new StartBrowserRequest { UserId = Guid.NewGuid().ToString() };
 
-        var response = new
+        var responseData = new
         {
-            code = 0,
-            data = new
+            ws = new
             {
-                ws = new
-                {
-                    selenium = "127.0.0.1:8080",
-                    puppeteer = "ws://127.0.0.1:xxxx/devtools/browser/xxxxxx"
-                },
-                debug_port = "xxxx",
-                webdriver = @"C:\xxxx\chromedriver.exe"
+                selenium = "127.0.0.1:8080",
+                puppeteer = "ws://127.0.0.1:xxxx/devtools/browser/xxxxxx"
             },
-            msg = "success"
+            debug_port = "xxxx",
+            webdriver = @"C:\xxxx\chromedriver.exe"
         };
 
-        var result = await MockResponse<StartBrowserRequest, StartBrowserResponse>(
+        var resultData = await MockSuccessResponse<StartBrowserRequest, StartBrowserResponse, BrowserData>(
             "/api/v1/browser/start",
             apiClient => apiClient.Browser.StartAsync,
             request,
-            response
+            responseData
         );
 
         Assert.Multiple(() =>
         {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Data?.DebugPort, Is.EqualTo(response.data.debug_port));
-            Assert.That(result.Data?.WebDriver, Is.EqualTo(response.data.webdriver));
-
-            Assert.That(result.Data?.Websockets, Is.Not.Null
-                .And.Count.EqualTo(2)
-                .And.ContainKey("selenium")
-                .And.ContainKey("puppeteer")
-            );
+            Assert.That(resultData.Websockets, Is.Not.Null);
+            Assert.That(resultData.Websockets?["selenium"], Is.EqualTo(responseData.ws.selenium));
+            Assert.That(resultData.Websockets?["puppeteer"], Is.EqualTo(responseData.ws.puppeteer));
+            Assert.That(resultData.DebugPort, Is.EqualTo(responseData.debug_port));
+            Assert.That(resultData.WebDriver, Is.EqualTo(responseData.webdriver));
         });
     }
 
@@ -86,27 +75,11 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task Stop_Success()
     {
-        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
-
-        var response = new
-        {
-            code = 0,
-            data = new { },
-            msg = "success"
-        };
-
-        var result = await MockResponse<BrowserRequest, LocalApiResponse>(
+        await MockSuccessResponse<BrowserRequest, LocalApiResponse>(
             "/api/v1/browser/stop",
             apiClient => apiClient.Browser.StopAsync,
-            request,
-            response
+            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
         );
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-        });
     }
 
     [Test]
@@ -140,20 +113,15 @@ public class BrowserApiMockTests : ApiTestBase
 
         var response = new
         {
-            code = 0,
-            data = new
+            status = "Active",
+            ws = new
             {
-                status = "Active",
-                ws = new
-                {
-                    selenium = "127.0.0.1:xxxx",
-                    puppeteer = "ws://127.0.0.1:xxxx/devtools/browser/xxxxxx"
-                }
-            },
-            msg = "success"
+                selenium = "127.0.0.1:xxxx",
+                puppeteer = "ws://127.0.0.1:xxxx/devtools/browser/xxxxxx"
+            }
         };
 
-        var result = await MockResponse<BrowserRequest, BrowserStatusResponse>(
+        var resultData = await MockSuccessResponse<BrowserRequest, BrowserStatusResponse, BrowserStatus>(
             "/api/v1/browser/active",
             apiClient => apiClient.Browser.GetStatusAsync,
             request,
@@ -162,12 +130,10 @@ public class BrowserApiMockTests : ApiTestBase
 
         Assert.Multiple(() =>
         {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Data?.Status, Is.EqualTo(response.data.status));
-            Assert.That(result.Data?.Websockets?["selenium"], Is.EqualTo(response.data.ws.selenium));
-            Assert.That(result.Data?.Websockets?["puppeteer"], Is.EqualTo(response.data.ws.puppeteer));
+            Assert.That(resultData.Status, Is.EqualTo(response.status));
+            Assert.That(resultData.Websockets, Is.Not.Null);
+            Assert.That(resultData.Websockets?["selenium"], Is.EqualTo(response.ws.selenium));
+            Assert.That(resultData.Websockets?["puppeteer"], Is.EqualTo(response.ws.puppeteer));
         });
     }
 
