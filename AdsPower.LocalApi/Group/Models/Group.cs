@@ -11,13 +11,13 @@ public record Group
     /// The unique identifier of the group.
     /// </summary>
     [JsonPropertyName("group_id")]
-    public string GroupId { get; init; } = string.Empty;
+    public required string GroupId { get; init; }
 
     /// <summary>
     /// The name of the group.
     /// </summary>
     [JsonPropertyName("group_name")]
-    public string GroupName { get; init; } = string.Empty;
+    public required string GroupName { get; init; }
 
     /// <summary>
     /// Optional notes or remarks about the group.
