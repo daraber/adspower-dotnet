@@ -14,35 +14,25 @@ public class GroupApiMockTests : ApiTestBase
     [Test]
     public async Task Create_Success()
     {
-        var request = new GroupRequest { GroupName = Guid.NewGuid().ToString() };
-
-        var response = new
+        var responseData = new
         {
-            code = 0,
-            msg = "Success",
-            data = new
-            {
-                group_id = "group-id",
-                group_name = "group-name",
-                remark = "group-remark"
-            },
+            group_id = "group-id",
+            group_name = "group-name",
+            remark = "group-remark"
         };
 
-        var result = await MockResponse<GroupRequest, CreateGroupResponse>(
+        var resultData = await MockSuccessResponse<GroupRequest, CreateGroupResponse, LocalApi.Group.Models.Group>(
             "/api/v1/group/create",
             apiClient => apiClient.Group.CreateAsync,
-            request,
-            response
+            new GroupRequest { GroupName = Guid.NewGuid().ToString() },
+            responseData
         );
 
         Assert.Multiple(() =>
         {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Data?.GroupId, Is.EqualTo(response.data.group_id));
-            Assert.That(result.Data?.GroupName, Is.EqualTo(response.data.group_name));
-            Assert.That(result.Data?.Remark, Is.EqualTo(response.data.remark));
+            Assert.That(resultData.GroupId, Is.EqualTo(responseData.group_id));
+            Assert.That(resultData.GroupName, Is.EqualTo(responseData.group_name));
+            Assert.That(resultData.Remark, Is.EqualTo(responseData.remark));
         });
     }
 
