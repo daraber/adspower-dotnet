@@ -1,7 +1,7 @@
 ﻿using AdsPower.LocalApi.Group;
 using AdsPower.LocalApi.Tests.Internal;
 
-namespace AdsPower.LocalApi.Tests;
+namespace AdsPower.LocalApi.Tests.Group;
 
 [TestFixture]
 [TestOf(typeof(GroupApi))]

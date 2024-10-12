@@ -3,7 +3,7 @@ using AdsPower.LocalApi.Application.Requests;
 using AdsPower.LocalApi.Application.Responses;
 using AdsPower.LocalApi.Tests.Internal;
 
-namespace AdsPower.LocalApi.Tests;
+namespace AdsPower.LocalApi.Tests.Application;
 
 [TestFixture]
 [TestOf(typeof(ApplicationApi))]
