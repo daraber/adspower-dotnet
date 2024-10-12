@@ -1,6 +1,4 @@
-﻿using AdsPower.LocalApi.Application.Requests;
-using AdsPower.LocalApi.Application.Responses;
-using AdsPower.LocalApi.Group;
+﻿using AdsPower.LocalApi.Group;
 using AdsPower.LocalApi.Group.Requests;
 using AdsPower.LocalApi.Group.Responses;
 using AdsPower.LocalApi.Tests.Internal;
