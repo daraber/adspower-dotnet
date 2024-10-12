@@ -7,7 +7,7 @@ namespace AdsPower.LocalApi.Tests;
 [TestOf(typeof(LocalApiClient))]
 [Parallelizable(ParallelScope.All)]
 [MockTest]
-public class LocalApiClientTests : ApiTestBase
+public class LocalApiClientMockTests : ApiTestBase
 {
     [Test]
     public async Task GetConnectionStatus_Success()
