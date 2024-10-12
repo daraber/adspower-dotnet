@@ -278,6 +278,8 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task GetStatusList_Success()
     {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+        
         var response = new
         {
             code = 0,
@@ -301,9 +303,10 @@ public class BrowserApiMockTests : ApiTestBase
             }
         };
 
-        var result = await MockResponse<BrowserStatusListResponse>(
+        var result = await MockResponse<BrowserRequest, BrowserStatusListResponse>(
             "/api/v1/browser/local-active",
             apiClient => apiClient.Browser.GetStatusListAsync,
+            request,
             response
         );
 
@@ -334,6 +337,8 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task GetStatusList_Failed()
     {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+        
         var response = new
         {
             code = -1,
@@ -341,9 +346,10 @@ public class BrowserApiMockTests : ApiTestBase
             msg = "failed"
         };
 
-        var result = await MockResponse<BrowserStatusListResponse>(
+        var result = await MockResponse<BrowserRequest,BrowserStatusListResponse>(
             "/api/v1/browser/local-active",
             apiClient => apiClient.Browser.GetStatusListAsync,
+            request,
             response
         );
 
@@ -358,6 +364,8 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public void GetStatusList_Canceled()
     {
+        var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
+        
         var response = new
         {
             code = -1,
@@ -365,9 +373,10 @@ public class BrowserApiMockTests : ApiTestBase
             msg = "failed"
         };
 
-        TestCancellationToken<BrowserStatusListResponse>(
+        TestCancellationToken<BrowserRequest, BrowserStatusListResponse>(
             "/api/v1/browser/local-active",
             apiClient => apiClient.Browser.GetStatusListAsync,
+            request,
             response
         );
     }
