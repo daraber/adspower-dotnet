@@ -10,7 +10,7 @@ namespace AdsPower.LocalApi.Tests.Browser;
 [TestOf(typeof(BrowserApi))]
 [Parallelizable(ParallelScope.All)]
 [MockTest]
-public class BrowserApiTests : ApiTestBase
+public class BrowserApiMockTests : ApiTestBase
 {
     #region StartAsync
 

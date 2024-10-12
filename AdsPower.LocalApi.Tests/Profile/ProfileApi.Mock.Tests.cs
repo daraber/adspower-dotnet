@@ -7,7 +7,7 @@ namespace AdsPower.LocalApi.Tests.Profile;
 [TestOf(typeof(GroupApi))]
 [Parallelizable(ParallelScope.All)]
 [MockTest]
-public class ProfileApiTests : ApiTestBase
+public class ProfileApiMockTests : ApiTestBase
 {
     
 }
