@@ -64,7 +64,6 @@ public abstract class ApiTestBase
         return result.Data!;
     }
 
-
     protected async Task MockFailedResponse<TRequest, TResponse>(
         string path,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
