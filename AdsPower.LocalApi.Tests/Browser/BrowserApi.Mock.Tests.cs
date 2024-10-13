@@ -49,48 +49,36 @@ public class BrowserApiMockTests : ApiTestBase
     }
 
     [Test]
-    public async Task Start_Failed()
-    {
-        await MockFailedResponse<StartBrowserRequest, StartBrowserResponse>(
-            "/api/v1/browser/start",
-            apiClient => apiClient.Browser.StartAsync,
-            new StartBrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public async Task Start_Failed() => await MockFailedResponse<StartBrowserRequest, StartBrowserResponse>(
+        "/api/v1/browser/start",
+        apiClient => apiClient.Browser.StartAsync,
+        new StartBrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     [Test]
-    public void Start_Canceled()
-    {
-        TestCancellationToken<StartBrowserRequest, StartBrowserResponse>(
-            "api/v1/browser/start",
-            apiClient => apiClient.Browser.StartAsync,
-            new StartBrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public void Start_Canceled() => TestCancellationToken<StartBrowserRequest, StartBrowserResponse>(
+        "api/v1/browser/start",
+        apiClient => apiClient.Browser.StartAsync,
+        new StartBrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     #endregion
 
     #region StopAsync
 
     [Test]
-    public async Task Stop_Success()
-    {
-        await MockSuccessResponse<BrowserRequest, LocalApiResponse>(
-            "/api/v1/browser/stop",
-            apiClient => apiClient.Browser.StopAsync,
-            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public async Task Stop_Success() => await MockSuccessResponse<BrowserRequest, LocalApiResponse>(
+        "/api/v1/browser/stop",
+        apiClient => apiClient.Browser.StopAsync,
+        new BrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     [Test]
-    public async Task Stop_Failed()
-    {
-        await MockFailedResponse<BrowserRequest, LocalApiResponse>(
-            "/api/v1/browser/stop",
-            apiClient => apiClient.Browser.StopAsync,
-            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public async Task Stop_Failed() => await MockFailedResponse<BrowserRequest, LocalApiResponse>(
+        "/api/v1/browser/stop",
+        apiClient => apiClient.Browser.StopAsync,
+        new BrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     [Test]
     public void Stop_Canceled()
@@ -138,24 +126,18 @@ public class BrowserApiMockTests : ApiTestBase
     }
 
     [Test]
-    public async Task GetStatus_Failed()
-    {
-        await MockFailedResponse<BrowserRequest, BrowserStatusResponse>(
-            "/api/v1/browser/active",
-            apiClient => apiClient.Browser.GetStatusAsync,
-            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public async Task GetStatus_Failed() => await MockFailedResponse<BrowserRequest, BrowserStatusResponse>(
+        "/api/v1/browser/active",
+        apiClient => apiClient.Browser.GetStatusAsync,
+        new BrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     [Test]
-    public void GetStatus_Canceled()
-    {
-        TestCancellationToken<BrowserRequest, BrowserStatusResponse>(
-            "/api/v1/browser/active",
-            apiClient => apiClient.Browser.GetStatusAsync,
-            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public void GetStatus_Canceled() => TestCancellationToken<BrowserRequest, BrowserStatusResponse>(
+        "/api/v1/browser/active",
+        apiClient => apiClient.Browser.GetStatusAsync,
+        new BrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     #endregion
 
@@ -221,24 +203,18 @@ public class BrowserApiMockTests : ApiTestBase
     }
 
     [Test]
-    public async Task GetStatusList_Failed()
-    {
-        await MockFailedResponse<BrowserRequest, BrowserStatusListResponse>(
-            "/api/v1/browser/local-active",
-            apiClient => apiClient.Browser.GetStatusListAsync,
-            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public async Task GetStatusList_Failed() => await MockFailedResponse<BrowserRequest, BrowserStatusListResponse>(
+        "/api/v1/browser/local-active",
+        apiClient => apiClient.Browser.GetStatusListAsync,
+        new BrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     [Test]
-    public void GetStatusList_Canceled()
-    {
-        TestCancellationToken<BrowserRequest, BrowserStatusListResponse>(
-            "/api/v1/browser/local-active",
-            apiClient => apiClient.Browser.GetStatusListAsync,
-            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public void GetStatusList_Canceled() => TestCancellationToken<BrowserRequest, BrowserStatusListResponse>(
+        "/api/v1/browser/local-active",
+        apiClient => apiClient.Browser.GetStatusListAsync,
+        new BrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     #endregion
 }
