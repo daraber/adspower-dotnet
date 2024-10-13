@@ -55,7 +55,7 @@ public class BrowserApiMockTests : ApiTestBase
 
     [Test]
     public void Start_Canceled() => TestCancellationToken<StartBrowserRequest, StartBrowserResponse>(
-        "api/v1/browser/start",
+        "/api/v1/browser/start",
         apiClient => apiClient.Browser.StartAsync,
         new StartBrowserRequest { UserId = Guid.NewGuid().ToString() }
     );
