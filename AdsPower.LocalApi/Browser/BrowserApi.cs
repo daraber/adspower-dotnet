@@ -115,7 +115,6 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
     /// <returns>The task object representing the asynchronous operation.</returns>
     public Task<BrowserStatusListResponse> GetStatusListAsync(string userId, CancellationToken cancellationToken = default)
     {
-        
         var request = new BrowserRequest { UserId = userId };
         return GetStatusListAsync(request, cancellationToken);
     }
