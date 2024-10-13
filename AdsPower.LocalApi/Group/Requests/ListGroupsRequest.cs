@@ -21,8 +21,7 @@ public record ListGroupsRequest : IQueryParameterizeable
     /// Number of items per page. Defaults to 1, with a maximum of 2000.
     /// </summary>
     public int? PageSize { get; init; } = 10;
-
-
+    
     public Dictionary<string, string> GetQueryParameters()
     {
         var parameters = new Dictionary<string, string>();
