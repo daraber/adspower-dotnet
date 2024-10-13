@@ -52,11 +52,10 @@ public class ProfileApi(ILocalApiClient client) : IProfileApi
     }
 
     public async Task<LocalApiResponse> DeleteCacheAsync(
-        RegroupProfilesRequest request,
         CancellationToken cancellationToken = default
     )
     {
         const string path = "/api/v1/user/delete-cache";
-        return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
+        return await client.PostAsync<LocalApiResponse>(path, new { }, cancellationToken);
     }
 }

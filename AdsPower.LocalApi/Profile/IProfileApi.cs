@@ -14,5 +14,5 @@ public interface IProfileApi
     Task<ProfilesListResponse> ListAsync(ListProfilesRequest request, CancellationToken cancellationToken = default);
     Task<LocalApiResponse> DeleteAsync(DeleteProfileRequest request, CancellationToken cancellationToken = default);
     Task<LocalApiResponse> RegroupAsync(RegroupProfilesRequest request, CancellationToken cancellationToken = default);
-    Task<LocalApiResponse> DeleteCacheAsync(RegroupProfilesRequest request, CancellationToken cancellationToken = default);
+    Task<LocalApiResponse> DeleteCacheAsync(CancellationToken cancellationToken = default);
 }
