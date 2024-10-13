@@ -38,7 +38,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
 
     /// <summary>
     /// Edits existing group name and/or remarks.
-    /// This feature requires an upgrade to version 2.5.6.2 or higher.
+    /// This feature requires AdsPower version 2.5.6.2 or higher.
     /// </summary>
     /// <param name="groupId">The ID of the group being edited.</param>
     /// <param name="groupName">The new <b>unique</b> name of the group.</param>
@@ -58,7 +58,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
 
     /// <summary>
     /// Edits existing group name and/or remarks.
-    /// This feature requires version 2.5.6.2 or higher.
+    /// This feature requires AdsPower version 2.5.6.2 or higher.
     /// </summary>
     /// <param name="request">The request object containing the group details to edit.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
