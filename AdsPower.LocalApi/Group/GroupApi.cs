@@ -43,7 +43,24 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
     #endregion
 
     #region ListAsync
-    
+
+    public async Task<GroupListResponse> ListAsync(
+        string? groupName = null,
+        int? page = 1,
+        int? pageSize = 10,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var request = new ListGroupsRequest
+        {
+            GroupName = groupName,
+            Page = page,
+            PageSize = pageSize
+        };
+
+        return await ListAsync(request, cancellationToken);
+    }
+
     public Task<GroupListResponse> ListAsync(ListGroupsRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/group/list";
