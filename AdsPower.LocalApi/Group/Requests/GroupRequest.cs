@@ -11,7 +11,7 @@ public record GroupRequest
     public required string GroupName { get; init; }
 
     /// <summary>
-    /// Optional notes for adding or modifying groups. Requires version 2.6.7.2 or above.
+    /// Optional notes for the group. Requires version 2.6.7.2 or above.
     /// </summary>
     public string? Remark { get; init; }
 }
