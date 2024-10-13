@@ -4,7 +4,6 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Group;
 
-
 public class GroupApi(ILocalApiClient apiClient) : IGroupApi
 {
     #region CreateAsync
@@ -14,6 +13,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
     /// </summary>
     /// <param name="groupName">The <b>unique</b> name of the group to be created.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The task object representing the asynchronous operation.</returns>
     public Task<CreateGroupResponse> CreateAsync(string groupName, CancellationToken cancellationToken = default)
     {
         var request = new GroupRequest { GroupName = groupName };
@@ -25,6 +25,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
     /// </summary>
     /// <param name="request">The request object containing the group details.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The task object representing the asynchronous operation.</returns>
     public Task<CreateGroupResponse> CreateAsync(GroupRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/group/create";
@@ -43,6 +44,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
     /// <param name="groupName">The new <b>unique</b> name of the group.</param>
     /// <param name="remark">Optional. Modified grouping notes (requires version 2.6.7.2 or higher).</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The task object representing the asynchronous operation.</returns>
     public Task<LocalApiResponse> UpdateAsync(
         string groupId,
         string groupName,
@@ -60,6 +62,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
     /// </summary>
     /// <param name="request">The request object containing the group details to edit.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The task object representing the asynchronous operation.</returns>
     public Task<LocalApiResponse> UpdateAsync(UpdateGroupRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/group/update";
@@ -78,6 +81,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
     /// <param name="page">Optional. The page number for the query. Defaults to 1 (first page).</param>
     /// <param name="pageSize">Optional. The number of items per page. Defaults to 1, with a maximum of 2000.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The task object representing the asynchronous operation.</returns>
     public async Task<GroupListResponse> ListAsync(
         string? groupName = null,
         int? page = 1,
@@ -101,6 +105,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
     /// </summary>
     /// <param name="request">The request object containing the query parameters.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The task object representing the asynchronous operation.</returns>
     public Task<GroupListResponse> ListAsync(ListGroupsRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/group/list";
