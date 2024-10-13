@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace AdsPower.LocalApi.Browser.Models;
-// Inherit docs
 
 /// <summary>
 /// Represents the data related to browser automation interfaces.
