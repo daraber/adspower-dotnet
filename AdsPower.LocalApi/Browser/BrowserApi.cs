@@ -11,7 +11,8 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
         CancellationToken cancellationToken = default
     )
     {
-        return await apiClient.GetAsync<StartBrowserResponse>("/api/v1/browser/start", request, cancellationToken);
+        const string path = "/api/v1/browser/start";
+        return await apiClient.GetAsync<StartBrowserResponse>(path, request, cancellationToken);
     }
 
     public async Task<LocalApiResponse> StopAsync(BrowserRequest request, CancellationToken cancellationToken = default)
