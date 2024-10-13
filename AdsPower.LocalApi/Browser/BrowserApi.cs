@@ -75,7 +75,7 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
     #region GetStatusAsync
 
     /// <summary>
-    /// Fetches the status of the browser and websocket addresses for automation using the specified profile ID.
+    /// Fetches the status of a browser and websocket addresses for automation using the specified profile ID.
     /// </summary>
     /// <param name="userId">The unique profile ID.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -87,7 +87,7 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
     }
 
     /// <summary>
-    /// Fetches the status of the browser and websocket addresses for automation using the specified profile ID.
+    /// Fetches the status of a browser and websocket addresses for automation using the specified profile ID.
     /// </summary>
     /// <param name="request">The request object containing the profile ID.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
