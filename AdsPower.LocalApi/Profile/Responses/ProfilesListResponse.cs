@@ -10,6 +10,9 @@ public record ProfilesListResponse : LocalApiListResponse<ProfileInfo>
     [JsonConverter(typeof(EmptyObjectToNullListConverter<ProfileInfo>))]
     public override LocalApiList<ProfileInfo>? Data { get; init; }
 
-    [JsonPropertyName("page")] public int Page { get; init; }
-    [JsonPropertyName("page_size")] public int PageSize { get; init; }
+    /*
+     TODO: Add support properties:
+        [JsonPropertyName("page")] public int Page { get; init; }
+        [JsonPropertyName("page_size")] public int PageSize { get; init; }
+     */
 }
