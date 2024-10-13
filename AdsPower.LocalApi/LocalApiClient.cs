@@ -12,8 +12,8 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
 {
     private readonly HttpClient _httpClient = new(handler ?? new HttpClientHandler());
 
-    public IBrowserApi Browser => new BrowserApi(this);
-    public IGroupApi Group => new GroupApi(this);
+    public BrowserApi Browser => new(this);
+    public GroupApi Group => new(this);
     public IApplicationApi Application => new ApplicationApi(this);
     public IProfileApi Profile => new ProfileApi(this);
 
