@@ -27,6 +27,14 @@ public class ProfileApiMockTests : ApiTestBase
 
     private static readonly ListProfilesRequest ListProfilesRequest = new();
 
+    private static readonly DeleteProfileRequest DeleteProfileRequest = new() { UserIds = [] };
+
+    private static readonly RegroupProfilesRequest RegroupProfilesRequest = new()
+    {
+        UserIds = ["user-id"],
+        GroupId = "group-id"
+    };
+
     #region CreateAsync
 
     [Test]
@@ -116,13 +124,14 @@ public class ProfileApiMockTests : ApiTestBase
             page_size = 50
         };
 
-        var resultData = await MockSuccessResponse<ListProfilesRequest, ProfilesListResponse, LocalApiList<ProfileInfo>>(
-            "/api/v1/user/list",
-            apiClient => apiClient.Profile.ListAsync,
-            ListProfilesRequest,
-            responseData
-        );
-        
+        var resultData =
+            await MockSuccessResponse<ListProfilesRequest, ProfilesListResponse, LocalApiList<ProfileInfo>>(
+                "/api/v1/user/list",
+                apiClient => apiClient.Profile.ListAsync,
+                ListProfilesRequest,
+                responseData
+            );
+
         Assert.Multiple(() =>
         {
             Assert.That(resultData.List, Is.Not.Null.Or.Empty);
@@ -158,6 +167,62 @@ public class ProfileApiMockTests : ApiTestBase
         apiClient => apiClient.Profile.ListAsync,
         ListProfilesRequest
     );
+
+    #endregion
+
+    #region DeleteAsync
+
+    [Test]
+    public async Task Delete_Success() => await MockSuccessResponse<DeleteProfileRequest, LocalApiResponse>(
+        "/api/v1/user/delete",
+        apiClient => apiClient.Profile.DeleteAsync,
+        DeleteProfileRequest
+    );
+
+    [Test]
+    public async Task Delete_Failed() => await MockFailedResponse<DeleteProfileRequest, LocalApiResponse>(
+        "/api/v1/user/delete",
+        apiClient => apiClient.Profile.DeleteAsync,
+        DeleteProfileRequest
+    );
+
+    [Test]
+    public void Delete_Canceled() => TestCancellationToken<DeleteProfileRequest, LocalApiResponse>(
+        "/api/v1/user/delete",
+        apiClient => apiClient.Profile.DeleteAsync,
+        DeleteProfileRequest
+    );
+
+    #endregion
+
+    #region RegroupAsync
+
+    [Test]
+    public async Task Move_Success() => await MockSuccessResponse<RegroupProfilesRequest, LocalApiResponse>(
+        "/api/v1/user/regroup",
+        apiClient => apiClient.Profile.RegroupAsync,
+        RegroupProfilesRequest
+    );
+
+    [Test]
+    public async Task Move_Failed() => await MockFailedResponse<RegroupProfilesRequest, LocalApiResponse>(
+        "/api/v1/user/regroup",
+        apiClient => apiClient.Profile.RegroupAsync,
+        RegroupProfilesRequest
+    );
+
+    [Test]
+    public void Move_Canceled() => TestCancellationToken<RegroupProfilesRequest, LocalApiResponse>(
+        "/api/v1/user/regroup",
+        apiClient => apiClient.Profile.RegroupAsync,
+        RegroupProfilesRequest
+    );
+
+    #endregion
+    
+    #region DeleteCacheAsync
+
+    // TODO: Add tests for DeleteCacheAsync
 
     #endregion
 }
