@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile.Requests;
@@ -6,7 +5,7 @@ namespace AdsPower.LocalApi.Profile.Requests;
 /// <summary>
 /// Represents the request parameters for querying profiles.
 /// </summary>
-public record QueryProfileRequest : IQueryParameterizeable
+public record ListProfilesRequest : IQueryParameterizeable
 {
     /// <summary>
     /// Group ID to filter the profiles. Optional.
