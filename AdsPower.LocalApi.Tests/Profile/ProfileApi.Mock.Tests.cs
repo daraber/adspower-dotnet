@@ -85,7 +85,7 @@ public class ProfileApiMockTests : ApiTestBase
 
     #endregion
 
-    #region UpdateAsync
+    #region ListAsync
 
     [Test]
     public async Task List_Success()
