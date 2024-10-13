@@ -8,7 +8,7 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi;
 
-public class LocalApiClient(string url, HttpMessageHandler? handler) : ILocalApiClient, IDisposable
+public class LocalApiClient(string url, HttpMessageHandler? handler = null) : ILocalApiClient, IDisposable
 {
     private readonly HttpClient _httpClient = new(handler ?? new HttpClientHandler());
 
