@@ -30,7 +30,7 @@ public class ProfileApi(ILocalApiClient client) : IProfileApi
     )
     {
         const string path = "/api/v1/user/list";
-        return await client.PostAsync<ProfilesListResponse>(path, request, cancellationToken);
+        return await client.GetAsync<ProfilesListResponse>(path, request, cancellationToken);
     }
 
     public async Task<LocalApiResponse> DeleteAsync(
