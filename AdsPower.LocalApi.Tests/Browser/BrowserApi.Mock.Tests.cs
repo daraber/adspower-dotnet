@@ -18,8 +18,6 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task Start_Success()
     {
-        var request = new StartBrowserRequest { UserId = Guid.NewGuid().ToString() };
-
         var responseData = new
         {
             ws = new
@@ -34,7 +32,7 @@ public class BrowserApiMockTests : ApiTestBase
         var resultData = await MockSuccessResponse<StartBrowserRequest, StartBrowserResponse, BrowserData>(
             "/api/v1/browser/start",
             apiClient => apiClient.Browser.StartAsync,
-            request,
+            new StartBrowserRequest { UserId = "user-id" },
             responseData
         );
 
@@ -81,14 +79,11 @@ public class BrowserApiMockTests : ApiTestBase
     );
 
     [Test]
-    public void Stop_Canceled()
-    {
-        TestCancellationToken<BrowserRequest, LocalApiResponse>(
-            "/api/v1/browser/stop",
-            apiClient => apiClient.Browser.StopAsync,
-            new BrowserRequest { UserId = Guid.NewGuid().ToString() }
-        );
-    }
+    public void Stop_Canceled() => TestCancellationToken<BrowserRequest, LocalApiResponse>(
+        "/api/v1/browser/stop",
+        apiClient => apiClient.Browser.StopAsync,
+        new BrowserRequest { UserId = Guid.NewGuid().ToString() }
+    );
 
     #endregion
 
@@ -99,7 +94,7 @@ public class BrowserApiMockTests : ApiTestBase
     {
         var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
 
-        var response = new
+        var responseData = new
         {
             status = "Active",
             ws = new
@@ -113,15 +108,15 @@ public class BrowserApiMockTests : ApiTestBase
             "/api/v1/browser/active",
             apiClient => apiClient.Browser.GetStatusAsync,
             request,
-            response
+            responseData
         );
 
         Assert.Multiple(() =>
         {
-            Assert.That(resultData.Status, Is.EqualTo(response.status));
+            Assert.That(resultData.Status, Is.EqualTo(responseData.status));
             Assert.That(resultData.Websockets, Is.Not.Null);
-            Assert.That(resultData.Websockets?["selenium"], Is.EqualTo(response.ws.selenium));
-            Assert.That(resultData.Websockets?["puppeteer"], Is.EqualTo(response.ws.puppeteer));
+            Assert.That(resultData.Websockets?["selenium"], Is.EqualTo(responseData.ws.selenium));
+            Assert.That(resultData.Websockets?["puppeteer"], Is.EqualTo(responseData.ws.puppeteer));
         });
     }
 
@@ -148,57 +143,41 @@ public class BrowserApiMockTests : ApiTestBase
     {
         var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
 
-        var response = new
+        var responseList = new
         {
-            code = 0,
-            msg = "success",
-            data = new
+            list = new[]
             {
-                list = new[]
+                new
                 {
-                    new
+                    user_id = "xxx",
+                    ws = new
                     {
-                        user_id = "xxx",
-                        ws = new
-                        {
-                            puppeteer = "ws://127.0.0.1:xxxx/devtools/browser/xxxxxx",
-                            selenium = "127.0.0.1:xxxx"
-                        },
-                        debug_port = "xxxx",
-                        webdriver = "xxxx"
-                    }
+                        puppeteer = "ws://127.0.0.1:xxxx/devtools/browser/xxxxxx",
+                        selenium = "127.0.0.1:xxxx"
+                    },
+                    debug_port = "xxxx",
+                    webdriver = "xxxx"
                 }
             }
         };
 
-        var result = await MockResponse<BrowserRequest, BrowserStatusListResponse>(
+        var resultData = await MockSuccessResponse<BrowserRequest, BrowserStatusListResponse, LocalApiList<UserBrowserData>>(
             "/api/v1/browser/local-active",
             apiClient => apiClient.Browser.GetStatusListAsync,
             request,
-            response
+            responseList
         );
-
+        
         Assert.Multiple(() =>
         {
-            Assert.That(result.Code, Is.EqualTo(response.code));
-            Assert.That(result.Message, Is.EqualTo(response.msg));
-
-            Assert.That(result.Data, Is.Not.Null);
-        });
-
-        Assert.That(result.Data?.List, Is.Not.Null);
-        Assert.That(result.Data?.List.Count, Is.EqualTo(response.data.list.Length));
-
-        var browser = result.Data?.List[0];
-        var expectedBrowser = response.data.list[0];
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(browser?.UserId, Is.EqualTo(expectedBrowser.user_id));
-            Assert.That(browser?.Websockets?["puppeteer"], Is.EqualTo(expectedBrowser.ws.puppeteer));
-            Assert.That(browser?.Websockets?["selenium"], Is.EqualTo(expectedBrowser.ws.selenium));
-            Assert.That(browser?.DebugPort, Is.EqualTo(expectedBrowser.debug_port));
-            Assert.That(browser?.WebDriver, Is.EqualTo(expectedBrowser.webdriver));
+            Assert.That(resultData.List, Is.Not.Null.Or.Empty);
+            Assert.That(resultData.List, Has.Count.EqualTo(1));
+            Assert.That(resultData.List[0].UserId, Is.EqualTo(responseList.list[0].user_id));
+            Assert.That(resultData.List[0].Websockets, Is.Not.Null);
+            Assert.That(resultData.List[0].Websockets?["selenium"], Is.EqualTo(responseList.list[0].ws.selenium));
+            Assert.That(resultData.List[0].Websockets?["puppeteer"], Is.EqualTo(responseList.list[0].ws.puppeteer));
+            Assert.That(resultData.List[0].DebugPort, Is.EqualTo(responseList.list[0].debug_port));
+            Assert.That(resultData.List[0].WebDriver, Is.EqualTo(responseList.list[0].webdriver));
         });
     }
 

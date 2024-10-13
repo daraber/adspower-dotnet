@@ -17,7 +17,7 @@ public class ApplicationApiTests : ApiTestBase
     {
         var request = new ListApplicationsRequest();
 
-        var responseData = new
+        var responseList = new
         {
             list = new[]
             {
@@ -46,7 +46,7 @@ public class ApplicationApiTests : ApiTestBase
             "/api/v1/application/list",
             apiClient => apiClient.Application.ListAsync,
             request,
-            responseData
+            responseList
         );
 
         var list = resultData.List;

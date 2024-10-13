@@ -109,21 +109,7 @@ public abstract class ApiTestBase
         var apiResponse = await apiFunction(cancellationToken);
         return apiResponse;
     }
-
-    protected async Task<TResponse> MockResponse<TRequest, TResponse>(
-        string path,
-        Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
-        TRequest request,
-        object responseContent,
-        CancellationToken cancellationToken = default
-    )
-    {
-        using var mockApiClient = CreateMockClient(path, responseContent);
-        var apiFunction = call(mockApiClient);
-
-        var apiResponse = await apiFunction(request, cancellationToken);
-        return apiResponse;
-    }
+    
 
     protected void TestCancellationToken<TRequest, TResponse>(
         string path,
@@ -147,6 +133,21 @@ public abstract class ApiTestBase
         });
     }
 
+    private async Task<TResponse> MockResponse<TRequest, TResponse>(
+        string path,
+        Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
+        TRequest request,
+        object responseContent,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var mockApiClient = CreateMockClient(path, responseContent);
+        var apiFunction = call(mockApiClient);
+
+        var apiResponse = await apiFunction(request, cancellationToken);
+        return apiResponse;
+    }
+    
     private LocalApiClient CreateMockClient(string path, object content)
     {
         var contentString = JsonSerializer.Serialize(content);
