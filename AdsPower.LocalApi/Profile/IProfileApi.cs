@@ -13,6 +13,6 @@ public interface IProfileApi
     Task<LocalApiResponse> UpdateAsync(UpdateProfileRequest request, CancellationToken cancellationToken = default);
     Task<ProfilesListResponse> ListAsync(ListProfilesRequest request, CancellationToken cancellationToken = default);
     Task<LocalApiResponse> DeleteAsync(DeleteProfileRequest request, CancellationToken cancellationToken = default);
-    Task<LocalApiResponse> RegroupAsync(MoveProfileRequest request, CancellationToken cancellationToken = default);
-    Task<LocalApiResponse> DeleteCacheAsync(MoveProfileRequest request, CancellationToken cancellationToken = default);
+    Task<LocalApiResponse> RegroupAsync(RegroupProfilesRequest request, CancellationToken cancellationToken = default);
+    Task<LocalApiResponse> DeleteCacheAsync(RegroupProfilesRequest request, CancellationToken cancellationToken = default);
 }

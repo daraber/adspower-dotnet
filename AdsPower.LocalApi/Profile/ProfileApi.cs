@@ -43,7 +43,7 @@ public class ProfileApi(ILocalApiClient client) : IProfileApi
     }
 
     public async Task<LocalApiResponse> RegroupAsync(
-        MoveProfileRequest request,
+        RegroupProfilesRequest request,
         CancellationToken cancellationToken = default
     )
     {
@@ -52,7 +52,7 @@ public class ProfileApi(ILocalApiClient client) : IProfileApi
     }
 
     public async Task<LocalApiResponse> DeleteCacheAsync(
-        MoveProfileRequest request,
+        RegroupProfilesRequest request,
         CancellationToken cancellationToken = default
     )
     {

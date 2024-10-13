@@ -3,7 +3,7 @@ namespace AdsPower.LocalApi.Profile.Requests;
 /// <summary>
 /// Represents the request parameters for moving profiles to a different group.
 /// </summary>
-public record MoveProfileRequest
+public record RegroupProfilesRequest
 {
     /// <summary>
     /// List of user IDs to be regrouped. This is a required parameter.
@@ -16,11 +16,11 @@ public record MoveProfileRequest
     public string GroupId { get; init; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MoveProfileRequest"/> class.
+    /// Initializes a new instance of the <see cref="RegroupProfilesRequest"/> class.
     /// </summary>
     /// <param name="userIds">List of user IDs to be regrouped.</param>
     /// <param name="groupId">The ID of the target group.</param>
-    public MoveProfileRequest(List<string> userIds, string groupId)
+    public RegroupProfilesRequest(List<string> userIds, string groupId)
     {
         if (userIds == null || userIds.Count == 0 || userIds.Count > 100)
         {
