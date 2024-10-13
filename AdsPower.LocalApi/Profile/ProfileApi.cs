@@ -25,7 +25,7 @@ public class ProfileApi(ILocalApiClient client) : IProfileApi
     }
 
     public async Task<ProfilesListResponse> ListAsync(
-        MoveProfileRequest request,
+        QueryProfileRequest request,
         CancellationToken cancellationToken = default
     )
     {
