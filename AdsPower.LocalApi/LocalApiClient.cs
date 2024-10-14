@@ -14,18 +14,23 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
 
     public BrowserApi Browser => new(this);
     public GroupApi Group => new(this);
-    public IApplicationApi Application => new ApplicationApi(this);
-    public IProfileApi Profile => new ProfileApi(this);
+    public ApplicationApi Application => new(this);
+    public ProfileApi Profile => new(this);
 
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
-        return await GetAsync<LocalApiResponse>("status", cancellationToken);
+        return await GetAsync<LocalApiResponse>("/status", null, cancellationToken);
     }
 
     public async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
-        using var response = await _httpClient.PostAsJsonAsync($"{url}{path}", request, cancellationToken);
+        var uriBuilder = new UriBuilder(url)
+        {
+            Path = path
+        };
+        
+        using var response = await _httpClient.PostAsJsonAsync(uriBuilder.Uri, request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -44,33 +49,36 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
 
         return result;
     }
-    
+
     public async Task<T> GetAsync<T>(
         string path,
-        IQueryParameterizeable request,
+        IQueryParameterizeable? request,
         CancellationToken cancellationToken = default
     ) where T : LocalApiResponse
     {
-        var query = "?";
-
-        foreach (var (key, value) in request.GetQueryParameters())
+        var uriBuilder = new UriBuilder(url)
         {
-            query += $"{key}={HttpUtility.UrlEncode(value)}&";
-        }
-        
-        return await GetAsync<T>($"{path}{query}", cancellationToken);
-    }
+            Path = path,
+        };
 
-    private async Task<T> GetAsync<T>(string path, CancellationToken cancellationToken = default)
-        where T : LocalApiResponse
-    {
-        var uri = new Uri($"{url}{path}");
-        using var response = await _httpClient.GetAsync(uri, cancellationToken);
+        if (request is not null)
+        {
+            var query = string.Empty;
+
+            foreach (var (key, value) in request.GetQueryParameters())
+            {
+                query += $"{key}={HttpUtility.UrlEncode(value)}&";
+            }
+
+            uriBuilder.Query = query;
+        }
+
+        using var response = await _httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
             var message =
-                $"Bad HTTP response from {uri} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
+                $"Bad HTTP response from {uriBuilder} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
 
             throw new HttpRequestException(message);
         }
@@ -78,7 +86,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
         if (result is null)
         {
-            var message = $"Deserialized HTTP response from {uri} of type {typeof(T).Name} is null";
+            var message = $"Deserialized HTTP response from {uriBuilder} of type {typeof(T).Name} is null";
             throw new HttpRequestException(message);
         }
 
