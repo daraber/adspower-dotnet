@@ -17,24 +17,18 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
     public ApplicationApi Application => new(this);
     public ProfileApi Profile => new(this);
 
-    /// <summary>
-    /// Checks the availability of the current device API interface.
-    /// </summary>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>The task object representing the asynchronous operation.</returns>
+    //<inheritdoc/>
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
         return await GetAsync<LocalApiResponse>("/status", null, cancellationToken);
     }
 
+    //<inheritdoc/>
     public async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
-        var uriBuilder = new UriBuilder(url)
-        {
-            Path = path
-        };
-        
+        var uriBuilder = new UriBuilder(url) { Path = path };
+
         using var response = await _httpClient.PostAsJsonAsync(uriBuilder.Uri, request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
@@ -55,16 +49,14 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
         return result;
     }
 
+    //<inheritdoc/>
     public async Task<T> GetAsync<T>(
         string path,
         IQueryParameterizeable? request,
         CancellationToken cancellationToken = default
     ) where T : LocalApiResponse
     {
-        var uriBuilder = new UriBuilder(url)
-        {
-            Path = path,
-        };
+        var uriBuilder = new UriBuilder(url) { Path = path };
 
         if (request is not null)
         {
