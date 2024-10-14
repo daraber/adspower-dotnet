@@ -17,6 +17,11 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
     public ApplicationApi Application => new(this);
     public ProfileApi Profile => new(this);
 
+    /// <summary>
+    /// Checks the availability of the current device API interface.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The task object representing the asynchronous operation.</returns>
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
         return await GetAsync<LocalApiResponse>("/status", null, cancellationToken);
