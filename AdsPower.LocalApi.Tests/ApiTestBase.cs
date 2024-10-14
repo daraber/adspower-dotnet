@@ -118,7 +118,10 @@ public abstract class ApiTestBase
     )
     {
         using var cancellationTokenSource = new CancellationTokenSource();
+        var cancellationToken = cancellationTokenSource.Token;
+        
         cancellationTokenSource.Cancel();
+        
 
         var response = new
         {
@@ -129,25 +132,13 @@ public abstract class ApiTestBase
 
         Assert.ThrowsAsync<TaskCanceledException>(async () =>
         {
-            await MockResponse(path, call, request, response, cancellationTokenSource.Token);
+            using var mockApiClient = CreateMockClient(path, response);
+            var apiFunction = call(mockApiClient);
+
+            _ = await apiFunction(request, cancellationToken);
         });
     }
 
-    private async Task<TResponse> MockResponse<TRequest, TResponse>(
-        string path,
-        Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
-        TRequest request,
-        object responseContent,
-        CancellationToken cancellationToken = default
-    )
-    {
-        using var mockApiClient = CreateMockClient(path, responseContent);
-        var apiFunction = call(mockApiClient);
-
-        var apiResponse = await apiFunction(request, cancellationToken);
-        return apiResponse;
-    }
-    
     private LocalApiClient CreateMockClient(string path, object content)
     {
         var contentString = JsonSerializer.Serialize(content);
