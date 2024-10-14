@@ -3,6 +3,9 @@ using AdsPower.LocalApi.Application.Responses;
 
 namespace AdsPower.LocalApi.Application;
 
+/// <summary>
+/// Provides methods to interact with application operations.
+/// </summary>
 public class ApplicationApi(ILocalApiClient apiClient) : IApplicationApi
 {
     /// <summary>

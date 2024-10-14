@@ -4,6 +4,9 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Group;
 
+/// <summary>
+/// Provides methods to interact with group operations.
+/// </summary>
 public class GroupApi(ILocalApiClient apiClient) : IGroupApi
 {
     #region CreateAsync
