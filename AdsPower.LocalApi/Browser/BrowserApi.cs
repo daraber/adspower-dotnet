@@ -113,10 +113,10 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
     /// <param name="userId">The unique profile ID.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public Task<BrowserStatusListResponse> GetStatusListAsync(string userId, CancellationToken cancellationToken = default)
+    public Task<BrowserStatusListResponse> ListAsync(string userId, CancellationToken cancellationToken = default)
     {
         var request = new BrowserRequest { UserId = userId };
-        return GetStatusListAsync(request, cancellationToken);
+        return ListAsync(request, cancellationToken);
     }
 
     /// <summary>
@@ -125,7 +125,7 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
     /// <param name="request">The request object containing the profile ID.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public Task<BrowserStatusListResponse> GetStatusListAsync(
+    public Task<BrowserStatusListResponse> ListAsync(
         BrowserRequest request,
         CancellationToken cancellationToken = default
     )

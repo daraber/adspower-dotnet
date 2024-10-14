@@ -163,7 +163,7 @@ public class BrowserApiMockTests : ApiTestBase
 
         var resultData = await MockSuccessResponse<BrowserRequest, BrowserStatusListResponse, LocalApiList<UserBrowserData>>(
             "/api/v1/browser/local-active",
-            apiClient => apiClient.Browser.GetStatusListAsync,
+            apiClient => apiClient.Browser.ListAsync,
             request,
             responseList
         );
@@ -184,14 +184,14 @@ public class BrowserApiMockTests : ApiTestBase
     [Test]
     public async Task GetStatusList_Failed() => await MockFailedResponse<BrowserRequest, BrowserStatusListResponse>(
         "/api/v1/browser/local-active",
-        apiClient => apiClient.Browser.GetStatusListAsync,
+        apiClient => apiClient.Browser.ListAsync,
         new BrowserRequest { UserId = Guid.NewGuid().ToString() }
     );
 
     [Test]
     public void GetStatusList_Canceled() => TestCancellationToken<BrowserRequest, BrowserStatusListResponse>(
         "/api/v1/browser/local-active",
-        apiClient => apiClient.Browser.GetStatusListAsync,
+        apiClient => apiClient.Browser.ListAsync,
         new BrowserRequest { UserId = Guid.NewGuid().ToString() }
     );
 
