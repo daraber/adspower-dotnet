@@ -1,13 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <Version>1.0.0</Version>
+        <Description>Unofficial async .NET library for the AdsPower Local API</Description>
+
+        <PackageId>AdsPower.LocalApi</PackageId>
+        <PackageTags>AdsPower;adspower-dotnet</PackageTags>
+        <RepositoryUrl>https://github.com/daraber/adspower-dotnet</RepositoryUrl>
+        
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
+
+        <!-- Generate an XML documentation file for the project. -->
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+        <!-- Disable missing XML documentation warnings -->
+        <NoWarn>$(NoWarn),1570,1573,1574,1591</NoWarn>
+
+        <!-- Disable unused fields warnings -->
+        <NoWarn>$(NoWarn),0169</NoWarn>
+
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
-    
+
     <PropertyGroup>
-        <Description>Unofficial async .NET library for the AdsPower Local API </Description>
         <PackageId>AdsPower.LocalApi</PackageId>
         <RepositoryUrl>https://github.com/daraber/adspower-dotnet</RepositoryUrl>
     </PropertyGroup>
