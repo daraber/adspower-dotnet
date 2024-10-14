@@ -3,6 +3,7 @@ using System.Web;
 using AdsPower.LocalApi.Application;
 using AdsPower.LocalApi.Browser;
 using AdsPower.LocalApi.Group;
+using AdsPower.LocalApi.Internal;
 using AdsPower.LocalApi.Profile;
 using AdsPower.LocalApi.Shared;
 
@@ -30,21 +31,10 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
         var uriBuilder = new UriBuilder(url) { Path = path };
 
         using var response = await _httpClient.PostAsJsonAsync(uriBuilder.Uri, request, cancellationToken);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            var message =
-                $"Bad HTTP response from {path} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
-
-            throw new HttpRequestException(message);
-        }
+        ApiExceptionHelper.ThrowIfNotSuccessStatusCode(response, typeof(T));
 
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
-        if (result is null)
-        {
-            var message = $"Deserialized HTTP response from {path} of type {typeof(T).Name} is null";
-            throw new HttpRequestException(message);
-        }
+        ApiExceptionHelper.ThrowIfDeserializedResponseIsNull(result, uriBuilder.ToString());
 
         return result;
     }
@@ -71,22 +61,11 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
         }
 
         using var response = await _httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            var message =
-                $"Bad HTTP response from {uriBuilder} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
-
-            throw new HttpRequestException(message);
-        }
-
+        ApiExceptionHelper.ThrowIfNotSuccessStatusCode(response, typeof(T));
+        
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
-        if (result is null)
-        {
-            var message = $"Deserialized HTTP response from {uriBuilder} of type {typeof(T).Name} is null";
-            throw new HttpRequestException(message);
-        }
-
+        ApiExceptionHelper.ThrowIfDeserializedResponseIsNull(result, uriBuilder.ToString());
+        
         return result;
     }
 
