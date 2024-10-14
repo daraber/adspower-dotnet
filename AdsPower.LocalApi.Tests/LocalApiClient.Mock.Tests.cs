@@ -12,13 +12,13 @@ public class LocalApiClientMockTests : ApiTestBase
     [Test]
     public async Task GetConnectionStatus_Success()
     {
-        await TestGetConnectionStatus("status", 0, "success");
+        await TestGetConnectionStatus("/status", 0, "success");
     }
 
     [Test]
     public async Task GetConnectionStatus_Failed()
     {
-        await TestGetConnectionStatus("status", -1, "failed");
+        await TestGetConnectionStatus("/status", -1, "failed");
     }
     
     private async Task TestGetConnectionStatus(string path, int code, string message)
