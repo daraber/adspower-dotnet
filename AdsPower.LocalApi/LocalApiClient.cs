@@ -18,13 +18,13 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
     public ApplicationApi Application => new(this);
     public ProfileApi Profile => new(this);
 
-    //<inheritdoc/>
+    /// <inheritdoc/>
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
     {
         return await GetAsync<LocalApiResponse>("/status", null, cancellationToken);
     }
 
-    //<inheritdoc/>
+    /// <inheritdoc/>
     public async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
@@ -39,7 +39,7 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
         return result;
     }
 
-    //<inheritdoc/>
+    /// <inheritdoc/>
     public async Task<T> GetAsync<T>(
         string path,
         IQueryParameterizeable? request,
