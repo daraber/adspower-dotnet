@@ -136,10 +136,10 @@ public class BrowserApiMockTests : ApiTestBase
 
     #endregion
 
-    #region GetStatusListAsync
+    #region ListAsync
 
     [Test]
-    public async Task GetStatusList_Success()
+    public async Task List_Success()
     {
         var request = new BrowserRequest { UserId = Guid.NewGuid().ToString() };
 
@@ -182,14 +182,14 @@ public class BrowserApiMockTests : ApiTestBase
     }
 
     [Test]
-    public async Task GetStatusList_Failed() => await MockFailedResponse<BrowserRequest, BrowserStatusListResponse>(
+    public async Task List_Failed() => await MockFailedResponse<BrowserRequest, BrowserStatusListResponse>(
         "/api/v1/browser/local-active",
         apiClient => apiClient.Browser.ListAsync,
         new BrowserRequest { UserId = Guid.NewGuid().ToString() }
     );
 
     [Test]
-    public void GetStatusList_Canceled() => TestCancellationToken<BrowserRequest, BrowserStatusListResponse>(
+    public void List_Canceled() => TestCancellationToken<BrowserRequest, BrowserStatusListResponse>(
         "/api/v1/browser/local-active",
         apiClient => apiClient.Browser.ListAsync,
         new BrowserRequest { UserId = Guid.NewGuid().ToString() }
