@@ -5,10 +5,10 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile.Responses;
 
-public record ProfilesListResponse : LocalApiListResponse<ProfileInfo>
+public record ProfilesListResponse : LocalApiListResponse<ProfileData>
 {
-    [JsonConverter(typeof(EmptyObjectToNullListConverter<ProfileInfo>))]
-    public override LocalApiList<ProfileInfo>? Data { get; init; }
+    [JsonConverter(typeof(EmptyObjectToNullListConverter<ProfileData>))]
+    public override LocalApiList<ProfileData>? Data { get; init; }
 
     /*
      TODO: Add support properties:

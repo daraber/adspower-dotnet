@@ -5,7 +5,7 @@ namespace AdsPower.LocalApi.Profile.Models;
 /// <summary>
 /// Represents the profile information.
 /// </summary>
-public record ProfileInfo
+public record ProfileData
 {
     /// <summary>
     /// Gets the serial number.

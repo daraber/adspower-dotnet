@@ -125,7 +125,7 @@ public class ProfileApiMockTests : ApiTestBase
         };
 
         var resultData =
-            await MockSuccessResponse<ListProfilesRequest, ProfilesListResponse, LocalApiList<ProfileInfo>>(
+            await MockSuccessResponse<ListProfilesRequest, ProfilesListResponse, LocalApiList<ProfileData>>(
                 "/api/v1/user/list",
                 apiClient => apiClient.Profile.ListAsync,
                 ListProfilesRequest,
