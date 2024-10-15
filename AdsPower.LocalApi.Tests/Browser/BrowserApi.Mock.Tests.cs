@@ -161,13 +161,14 @@ public class BrowserApiMockTests : ApiTestBase
             }
         };
 
-        var resultData = await MockSuccessResponse<BrowserRequest, BrowserStatusListResponse, LocalApiList<UserBrowserData>>(
-            "/api/v1/browser/local-active",
-            apiClient => apiClient.Browser.ListAsync,
-            request,
-            responseList
-        );
-        
+        var resultData =
+            await MockSuccessResponse<BrowserRequest, BrowserStatusListResponse, LocalApiList<UserBrowserData>>(
+                "/api/v1/browser/local-active",
+                apiClient => apiClient.Browser.ListAsync,
+                request,
+                responseList
+            );
+
         Assert.Multiple(() =>
         {
             Assert.That(resultData.List, Is.Not.Null.Or.Empty);
