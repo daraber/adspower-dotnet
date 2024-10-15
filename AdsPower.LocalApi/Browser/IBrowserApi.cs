@@ -41,5 +41,5 @@ public interface IBrowserApi
     /// <param name="request">The request object containing the profile ID.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public Task<BrowserStatusListResponse> ListAsync(BrowserRequest request, CancellationToken cancellationToken = default);
+    public Task<BrowserStatusListResponse> ListAsync(BrowserRequest? request, CancellationToken cancellationToken = default);
 }

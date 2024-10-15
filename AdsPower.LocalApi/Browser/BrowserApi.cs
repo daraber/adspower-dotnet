@@ -94,19 +94,17 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
     /// <summary>
     /// Queries browser information.
     /// </summary>
-    /// <param name="userId">The unique profile ID.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public Task<BrowserStatusListResponse> ListAsync(string userId, CancellationToken cancellationToken = default)
+    public Task<BrowserStatusListResponse> ListAsync(CancellationToken cancellationToken = default)
     {
-        var request = new BrowserRequest { UserId = userId };
-        return ListAsync(request, cancellationToken);
+        return ListAsync(null, cancellationToken);
     }
 
 
     /// <inheritdoc/>
     public Task<BrowserStatusListResponse> ListAsync(
-        BrowserRequest request,
+        BrowserRequest? request,
         CancellationToken cancellationToken = default
     )
     {
