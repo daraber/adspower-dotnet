@@ -124,13 +124,12 @@ public class ProfileApiMockTests : ApiTestBase
             page_size = 50
         };
 
-        var resultData =
-            await MockSuccessResponse<ListProfilesRequest, ProfilesListResponse, LocalApiList<ProfileData>>(
-                "/api/v1/user/list",
-                apiClient => apiClient.Profile.ListAsync,
-                ListProfilesRequest,
-                responseData
-            );
+        var resultData = await MockSuccessResponse<ListProfilesRequest, ProfilesListResponse, ProfileDataList>(
+            "/api/v1/user/list",
+            apiClient => apiClient.Profile.ListAsync,
+            ListProfilesRequest,
+            responseData
+        );
 
         Assert.Multiple(() =>
         {
@@ -149,8 +148,8 @@ public class ProfileApiMockTests : ApiTestBase
             Assert.That(resultData.List[0].IpCountry, Is.EqualTo(responseData.list[0].ip_country));
             Assert.That(resultData.List[0].Password, Is.EqualTo(responseData.list[0].password));
             Assert.That(resultData.List[0].LastOpenTime, Is.EqualTo(responseData.list[0].last_open_time));
-            // Assert.That(resultData.Page, Is.EqualTo(responseData.page));
-            // Assert.That(resultData.PageSize, Is.EqualTo(responseData.page_size));
+            Assert.That(resultData.Page, Is.EqualTo(responseData.page));
+            Assert.That(resultData.PageSize, Is.EqualTo(responseData.page_size));
         });
     }
 
@@ -219,7 +218,7 @@ public class ProfileApiMockTests : ApiTestBase
     );
 
     #endregion
-    
+
     #region DeleteCacheAsync
 
     // TODO: Add tests for DeleteCacheAsync

@@ -5,14 +5,8 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile.Responses;
 
-public record ProfilesListResponse : LocalApiListResponse<ProfileData>
+public record ProfilesListResponse : LocalApiResponse<ProfileDataList>
 {
-    [JsonConverter(typeof(EmptyObjectToNullListConverter<ProfileData>))]
-    public override LocalApiList<ProfileData>? Data { get; init; }
-
-    /*
-     TODO: Add support properties:
-        [JsonPropertyName("page")] public int Page { get; init; }
-        [JsonPropertyName("page_size")] public int PageSize { get; init; }
-     */
+    [JsonConverter(typeof(EmptyObjectToNullConverter<ProfileDataList>))]
+    public override ProfileDataList? Data { get; init; }
 }
