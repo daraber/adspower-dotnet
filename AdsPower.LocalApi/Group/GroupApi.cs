@@ -22,13 +22,8 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
         var request = new GroupRequest { GroupName = groupName };
         return apiClient.PostAsync<CreateGroupResponse>("api/v1/group/create", request, cancellationToken);
     }
-
-    /// <summary>
-    /// Creates a new profile group. Default group ID is 0.
-    /// </summary>
-    /// <param name="request">The request object containing the group details.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>The task object representing the asynchronous operation.</returns>
+    
+    /// <inheritdoc/>
     public Task<CreateGroupResponse> CreateAsync(GroupRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/group/create";
@@ -59,13 +54,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
         return apiClient.PostAsync<LocalApiResponse>("api/v1/group/update", request, cancellationToken);
     }
 
-    /// <summary>
-    /// Edits existing group name and/or remarks.
-    /// This feature requires AdsPower version 2.5.6.2 or higher.
-    /// </summary>
-    /// <param name="request">The request object containing the group details to edit.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>The task object representing the asynchronous operation.</returns>
+    /// <inheritdoc/>
     public Task<LocalApiResponse> UpdateAsync(UpdateGroupRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/group/update";
@@ -102,13 +91,7 @@ public class GroupApi(ILocalApiClient apiClient) : IGroupApi
         return await ListAsync(request, cancellationToken);
     }
 
-    /// <summary>
-    /// Queries group information.
-    /// Default group ID is 0.
-    /// </summary>
-    /// <param name="request">The request object containing the query parameters.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>The task object representing the asynchronous operation.</returns>
+    /// <inheritdoc/>
     public Task<GroupListResponse> ListAsync(ListGroupsRequest request, CancellationToken cancellationToken = default)
     {
         const string path = "/api/v1/group/list";
