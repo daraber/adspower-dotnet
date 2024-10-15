@@ -101,7 +101,6 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
         return ListAsync(null, cancellationToken);
     }
 
-
     /// <inheritdoc/>
     public Task<BrowserStatusListResponse> ListAsync(
         BrowserRequest? request,
