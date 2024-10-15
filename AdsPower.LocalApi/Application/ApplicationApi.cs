@@ -30,12 +30,7 @@ public class ApplicationApi(ILocalApiClient apiClient) : IApplicationApi
         return await ListAsync(request, cancellationToken);
     }
 
-    /// <summary>
-    /// Queries the list of application categories.
-    /// </summary>
-    /// <param name="request">The request object containing the query parameters.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>The task object representing the asynchronous operation.</returns>
+    /// <inheritdoc/>
     public Task<ApplicationListResponse> ListAsync(
         ListApplicationsRequest request,
         CancellationToken cancellationToken = default
