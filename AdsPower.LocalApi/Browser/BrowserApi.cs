@@ -88,9 +88,7 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
     #endregion
 
     #region GetStatusListAsync
-
-    // TODO: userId / profile ID is not required when fetching browser status(es)
-
+    
     /// <summary>
     /// Queries browser information.
     /// </summary>
