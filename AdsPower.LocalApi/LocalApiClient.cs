@@ -13,7 +13,6 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
 {
     private readonly HttpClient _httpClient = httpClient ?? new HttpClient();
 
-
     public LocalApiClient(string url, HttpMessageHandler httpMessageHandler)
         : this(url, new HttpClient(httpMessageHandler))
     {
