@@ -146,11 +146,13 @@ public abstract class ApiTestBase
     {
         var contentString = JsonSerializer.Serialize(content);
 
-        var mockHttp = new MockHttpMessageHandler();
+        var mockHttpHandler = new MockHttpMessageHandler();
 
-        mockHttp.When($"{Url}{path}")
+        mockHttpHandler.When($"{Url}{path}")
             .Respond("application/json", contentString);
 
-        return new LocalApiClient(Url, mockHttp);
+        var mockHttpClient = mockHttpHandler.ToHttpClient();
+        
+        return new LocalApiClient(Url, mockHttpClient);
     }
 }

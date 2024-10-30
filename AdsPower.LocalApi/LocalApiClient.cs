@@ -9,9 +9,15 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi;
 
-public class LocalApiClient(string url, HttpMessageHandler? handler = null) : ILocalApiClient, IDisposable
+public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalApiClient, IDisposable
 {
-    private readonly HttpClient _httpClient = new(handler ?? new HttpClientHandler());
+    private readonly HttpClient _httpClient = httpClient ?? new HttpClient();
+
+
+    public LocalApiClient(string url, HttpMessageHandler httpMessageHandler)
+        : this(url, new HttpClient(httpMessageHandler))
+    {
+    }
 
     public BrowserApi Browser => new(this);
     public GroupApi Group => new(this);
@@ -62,10 +68,10 @@ public class LocalApiClient(string url, HttpMessageHandler? handler = null) : IL
 
         using var response = await _httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
         ApiExceptionHelper.ThrowIfNotSuccessStatusCode(response, typeof(T));
-        
+
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
         ApiExceptionHelper.ThrowIfDeserializedResponseIsNull(result, uriBuilder.ToString());
-        
+
         return result;
     }
 
