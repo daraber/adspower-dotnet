@@ -60,5 +60,5 @@ public record UserProxyConfig
     /// 0: No management; 1: Managed.
     /// </summary>
     [JsonPropertyName("global_config")]
-    public int GlobalConfig { get; init; } = 0;
+    public string? GlobalConfig { get; init; } = "0";
 }

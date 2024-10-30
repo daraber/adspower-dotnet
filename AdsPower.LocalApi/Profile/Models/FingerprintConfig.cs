@@ -220,8 +220,10 @@ public record FingerprintConfig
     public object? BrowserKernelConfig { get; init; }
 
     /// <summary>
-    /// GPU configuration. 0：Deploy settings from [Local settings - Hardware acceleration] 1：Turn on hardware acceleration to improve browser performance. Using different hardware may affect hardware-related fingerprints. 2：Turning off hardware acceleration will reduce browser performance.
+    /// GPU configuration. 0：Deploy settings from [Local settings - Hardware acceleration] (default).
+    /// 1：Turn on hardware acceleration to improve browser performance. Using different hardware may affect hardware-related fingerprints.
+    /// 2：Turning off hardware acceleration will reduce browser performance.
     /// </summary>
     [JsonPropertyName("gpu")]
-    public int Gpu { get; init; } = 0;
+    public string Gpu { get; init; } = "0";
 }
