@@ -29,6 +29,7 @@ public abstract class ApiTestBase
 
         Assert.Multiple(() =>
         {
+            Assert.That(result.Success, Is.True);
             Assert.That(result.Code, Is.EqualTo(response.code));
             Assert.That(result.Message, Is.EqualTo(response.msg));
         });
@@ -53,9 +54,10 @@ public abstract class ApiTestBase
         var apiFunction = call(mockApiClient);
 
         var result = await apiFunction(request, cancellationToken);
-
+        
         Assert.Multiple(() =>
         {
+            Assert.That(result.Success, Is.True);
             Assert.That(result.Code, Is.EqualTo(response.code));
             Assert.That(result.Message, Is.EqualTo(response.msg));
             Assert.That(result.Data, Is.Not.Null);
@@ -85,6 +87,7 @@ public abstract class ApiTestBase
 
         Assert.Multiple(() =>
         {
+            Assert.That(result.Success, Is.False);
             Assert.That(result.Code, Is.EqualTo(response.code));
             Assert.That(result.Message, Is.EqualTo(response.msg));
         });
@@ -109,7 +112,7 @@ public abstract class ApiTestBase
         var apiResponse = await apiFunction(cancellationToken);
         return apiResponse;
     }
-    
+
 
     protected void TestCancellationToken<TRequest, TResponse>(
         string path,
@@ -119,9 +122,9 @@ public abstract class ApiTestBase
     {
         using var cancellationTokenSource = new CancellationTokenSource();
         var cancellationToken = cancellationTokenSource.Token;
-        
+
         cancellationTokenSource.Cancel();
-        
+
 
         var response = new
         {
