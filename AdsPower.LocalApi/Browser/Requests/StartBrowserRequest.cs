@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace AdsPower.LocalApi.Browser.Requests;
 
 public record StartBrowserRequest : BrowserRequest
@@ -6,54 +8,63 @@ public record StartBrowserRequest : BrowserRequest
     /// Whether to open a platform or historical page.
     /// 0: Open (default), 1: Close. Requires version 2.4.2.9 or above.
     /// </summary>
+    [JsonPropertyName("open_tabs")]
     public int? OpenTabs { get; init; }
 
     /// <summary>
     /// Whether to open the IP detection page.
     /// 0: Not open, 1: Open (default). Requires version 2.5.7.9 or above.
     /// </summary>
+    [JsonPropertyName("ip_tab")]
     public int? IpTab { get; init; }
 
     /// <summary>
     /// Whether to use the new version of the IP detection page.
     /// 1: New version, 0: Old version (default). Requires version 2.6.6.9 or above.
     /// </summary>
+    [JsonPropertyName("new_first_tab")]
     public int? NewFirstTab { get; init; }
 
     /// <summary>
     /// Browser startup parameters (e.g., "--blink-settings=imagesEnabled=false").
     /// Parameters set here will take priority over those in the profile. Requires version 2.4.6.7 or above.
     /// </summary>
+    [JsonPropertyName("launch_args")]
     public string[]? LaunchArgs { get; init; }
 
     /// <summary>
     /// Whether to start the browser in headless mode.
     /// 0: No (default), 1: Yes. Requires version 2.4.6.7 or above.
     /// </summary>
+    [JsonPropertyName("headless")]
     public int? Headless { get; init; }
 
     /// <summary>
     /// Whether to disable the function of automatically filling passwords.
     /// 0: No (default), 1: Yes. Requires version 2.4.6.7 or above.
     /// </summary>
+    [JsonPropertyName("disable_password_filling")]
     public int? DisablePasswordFilling { get; init; }
 
     /// <summary>
     /// Whether to delete the cache after closing the browser.
     /// 0: No (default), 1: Yes. Recommended if disk space is insufficient. Requires version 2.4.7.6 or above.
     /// </summary>
+    [JsonPropertyName("clear_cache_after_closing")]
     public int? ClearCacheAfterClosing { get; init; }
 
     /// <summary>
     /// Whether to allow the saving of passwords.
     /// 0: No (default), 1: Yes. Requires version 2.4.8.7 or above.
     /// </summary>
+    [JsonPropertyName("enable_password_saving")]
     public int? EnablePasswordSaving { get; init; }
 
     /// <summary>
     /// Whether to mask the CDP (Chrome DevTools Protocol) detection.
     /// 1: Yes (default), 0: No.
     /// </summary>
+    [JsonPropertyName("cdp_mask")]
     public int? CdpMask { get; init; }
 
     public override Dictionary<string, string> GetQueryParameters()
