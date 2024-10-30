@@ -10,7 +10,7 @@ public record UserProxyConfig
     /// <summary>
     /// The type of proxy software being used.
     /// Supported options include luminati, lumauto, oxylabsauto, 922S5auto, ipideaauto, ipfoxyauto,
-    /// 922S5auth, kookauto, ssh, other, and noproxy.
+    /// 922S5auth, kookauto, ssh, other, and no_proxy.
     /// </summary>
     [JsonPropertyName("proxy_soft")]
     public required string ProxySoft { get; init; }
