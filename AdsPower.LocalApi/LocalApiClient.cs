@@ -61,6 +61,12 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
             {
                 query += $"{key}={HttpUtility.UrlEncode(value)}&";
             }
+            
+            // Remove trailing '&'
+            if (query.Length > 0)
+            {
+                query = query[..^1];
+            }
 
             uriBuilder.Query = query;
         }
