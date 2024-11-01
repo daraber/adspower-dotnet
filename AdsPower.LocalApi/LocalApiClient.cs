@@ -59,8 +59,7 @@ public class LocalApiClient(string url, HttpClient? httpClient = null, bool disp
 
         return result;
     }
-
-
+    
     private async Task<T> GetAsync<T>(
         string path,
         IQueryParameterizeable? request,
