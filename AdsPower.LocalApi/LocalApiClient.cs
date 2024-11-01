@@ -36,10 +36,10 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
         var uriBuilder = new UriBuilder(url) { Path = path };
 
         using var response = await _httpClient.PostAsJsonAsync(uriBuilder.Uri, request, cancellationToken);
-        ApiExceptionHelper.ThrowIfNotSuccessStatusCode(response, typeof(T));
+        Throw.IfNotSuccessStatusCode(response, typeof(T));
 
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
-        ApiExceptionHelper.ThrowIfDeserializedResponseIsNull(result, uriBuilder.ToString());
+        Throw.IfDeserializedResponseIsNull(result, uriBuilder.ToString());
 
         return result;
     }
@@ -66,10 +66,10 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
         }
 
         using var response = await _httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
-        ApiExceptionHelper.ThrowIfNotSuccessStatusCode(response, typeof(T));
+        Throw.IfNotSuccessStatusCode(response, typeof(T));
 
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
-        ApiExceptionHelper.ThrowIfDeserializedResponseIsNull(result, uriBuilder.ToString());
+        Throw.IfDeserializedResponseIsNull(result, uriBuilder.ToString());
 
         return result;
     }

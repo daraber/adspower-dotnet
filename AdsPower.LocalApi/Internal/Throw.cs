@@ -2,9 +2,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace AdsPower.LocalApi.Internal;
 
-internal static class ApiExceptionHelper
+internal static class Throw
 {
-    public static void ThrowIfNotSuccessStatusCode(HttpResponseMessage response, Type responseType)
+    public static void IfNotSuccessStatusCode(HttpResponseMessage response, Type responseType)
     {
         if (!response.IsSuccessStatusCode)
         {
@@ -13,7 +13,7 @@ internal static class ApiExceptionHelper
         }
     }
 
-    public static void ThrowIfDeserializedResponseIsNull<T>([NotNull] T? result, string path)
+    public static void IfDeserializedResponseIsNull<T>([NotNull] T? result, string path)
     {
         if (result is null)
         {
