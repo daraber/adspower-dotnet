@@ -30,7 +30,22 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
     }
 
     /// <inheritdoc/>
-    public async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
+    async Task<T> ILocalApiClient.PostAsync<T>(string path, object request, CancellationToken cancellationToken)
+    {
+        return await PostAsync<T>(path, request, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    async Task<T> ILocalApiClient.GetAsync<T>(
+        string path,
+        IQueryParameterizeable? request,
+        CancellationToken cancellationToken
+    )
+    {
+        return await GetAsync<T>(path, request, cancellationToken);
+    }
+
+    private async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
         var uriBuilder = new UriBuilder(url) { Path = path };
@@ -44,8 +59,8 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
         return result;
     }
 
-    /// <inheritdoc/>
-    public async Task<T> GetAsync<T>(
+
+    private async Task<T> GetAsync<T>(
         string path,
         IQueryParameterizeable? request,
         CancellationToken cancellationToken = default
