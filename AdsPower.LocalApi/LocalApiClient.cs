@@ -9,7 +9,8 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi;
 
-public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalApiClient, IDisposable
+public class LocalApiClient(string url, HttpClient? httpClient = null, bool disposeHttpClient = true)
+    : ILocalApiClient, IDisposable
 {
     private readonly HttpClient _httpClient = httpClient ?? new HttpClient();
 
@@ -91,7 +92,10 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
 
     public void Dispose()
     {
-        _httpClient.Dispose();
-        GC.SuppressFinalize(this);
+        if (disposeHttpClient)
+        {
+            _httpClient.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }
