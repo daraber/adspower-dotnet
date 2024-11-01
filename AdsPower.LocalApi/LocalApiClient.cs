@@ -77,7 +77,7 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
                 query += $"{key}={HttpUtility.UrlEncode(value)}&";
             }
 
-            uriBuilder.Query = query;
+            uriBuilder.Query = query.TrimEnd('&');
         }
 
         using var response = await _httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
