@@ -59,7 +59,7 @@ public class LocalApiClient(string url, HttpClient? httpClient = null, bool disp
 
         return result;
     }
-    
+
     private async Task<T> GetAsync<T>(
         string path,
         IQueryParameterizeable? request,
@@ -76,14 +76,11 @@ public class LocalApiClient(string url, HttpClient? httpClient = null, bool disp
             {
                 query += $"{key}={HttpUtility.UrlEncode(value)}&";
             }
-            
-            // Remove trailing '&'
+
             if (query.Length > 0)
             {
-                query = query[..^1];
+                uriBuilder.Query = query.TrimEnd('&');
             }
-
-            uriBuilder.Query = query.TrimEnd('&');
         }
 
         using var response = await _httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
