@@ -7,7 +7,6 @@ public record LocalApiResponse
 {
     [JsonPropertyName("code")] public required int Code { get; init; }
     [JsonPropertyName("msg")] public required string Message { get; init; }
-
     [JsonIgnore] public virtual bool Success => Code == 0;
 }
 
