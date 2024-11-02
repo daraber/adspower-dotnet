@@ -9,7 +9,8 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi;
 
-public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalApiClient, IDisposable
+public class LocalApiClient(string url, HttpClient? httpClient = null, bool disposeHttpClient = true)
+    : ILocalApiClient, IDisposable
 {
     private readonly HttpClient _httpClient = httpClient ?? new HttpClient();
 
@@ -30,22 +31,36 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
     }
 
     /// <inheritdoc/>
-    public async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
+    async Task<T> ILocalApiClient.PostAsync<T>(string path, object request, CancellationToken cancellationToken)
+    {
+        return await PostAsync<T>(path, request, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    async Task<T> ILocalApiClient.GetAsync<T>(
+        string path,
+        IQueryParameterizeable? request,
+        CancellationToken cancellationToken
+    )
+    {
+        return await GetAsync<T>(path, request, cancellationToken);
+    }
+
+    private async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
         var uriBuilder = new UriBuilder(url) { Path = path };
 
         using var response = await _httpClient.PostAsJsonAsync(uriBuilder.Uri, request, cancellationToken);
-        ApiExceptionHelper.ThrowIfNotSuccessStatusCode(response, typeof(T));
+        Throw.IfNotSuccessStatusCode(response, typeof(T));
 
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
-        ApiExceptionHelper.ThrowIfDeserializedResponseIsNull(result, uriBuilder.ToString());
+        Throw.IfDeserializedResponseIsNull(result, uriBuilder.ToString());
 
         return result;
     }
-
-    /// <inheritdoc/>
-    public async Task<T> GetAsync<T>(
+    
+    private async Task<T> GetAsync<T>(
         string path,
         IQueryParameterizeable? request,
         CancellationToken cancellationToken = default
@@ -68,21 +83,24 @@ public class LocalApiClient(string url, HttpClient? httpClient = null) : ILocalA
                 query = query[..^1];
             }
 
-            uriBuilder.Query = query;
+            uriBuilder.Query = query.TrimEnd('&');
         }
 
         using var response = await _httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
-        ApiExceptionHelper.ThrowIfNotSuccessStatusCode(response, typeof(T));
+        Throw.IfNotSuccessStatusCode(response, typeof(T));
 
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
-        ApiExceptionHelper.ThrowIfDeserializedResponseIsNull(result, uriBuilder.ToString());
+        Throw.IfDeserializedResponseIsNull(result, uriBuilder.ToString());
 
         return result;
     }
 
     public void Dispose()
     {
-        _httpClient.Dispose();
-        GC.SuppressFinalize(this);
+        if (disposeHttpClient)
+        {
+            _httpClient.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }

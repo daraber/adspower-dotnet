@@ -23,7 +23,7 @@ public record BrowserRequest : IQueryParameterizeable
         {
             { "user_id", UserId },
         };
-
+        
         if (!string.IsNullOrWhiteSpace(SerialNumber))
         {
             parameters.Add("serial_number", SerialNumber);
