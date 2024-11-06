@@ -4,5 +4,5 @@ namespace AdsPower.LocalApi.Shared;
 
 public record LocalApiList<T>
 {
-    [JsonPropertyName("list")] public List<T> List { get; init; } = [];
+    [JsonPropertyName("list")] public IReadOnlyList<T> List { get; init; } = [];
 }
