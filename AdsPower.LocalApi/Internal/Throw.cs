@@ -9,7 +9,7 @@ internal static class Throw
         if (!response.IsSuccessStatusCode)
         {
             var message = $"Bad HTTP response from {response.RequestMessage?.RequestUri} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
-            throw new HttpRequestException(message);
+            throw new HttpRequestException(message, null, response.StatusCode);
         }
     }
 
