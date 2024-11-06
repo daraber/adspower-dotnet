@@ -52,7 +52,7 @@ public class LocalApiClient(string url, HttpClient? httpClient = null, bool disp
         var uriBuilder = new UriBuilder(url) { Path = path };
 
         using var response = await _httpClient.PostAsJsonAsync(uriBuilder.Uri, request, cancellationToken);
-        Throw.IfNotSuccessStatusCode(response, typeof(T));
+        Throw.IfNotSuccessStatusCode<T>(response);
 
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
         Throw.IfDeserializedResponseIsNull(result, uriBuilder.ToString());
@@ -84,7 +84,7 @@ public class LocalApiClient(string url, HttpClient? httpClient = null, bool disp
         }
 
         using var response = await _httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
-        Throw.IfNotSuccessStatusCode(response, typeof(T));
+        Throw.IfNotSuccessStatusCode<T>(response);
 
         var result = await response.Content.ReadFromJsonAsync<T>(cancellationToken);
         Throw.IfDeserializedResponseIsNull(result, uriBuilder.ToString());

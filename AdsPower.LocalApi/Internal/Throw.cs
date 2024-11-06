@@ -4,11 +4,11 @@ namespace AdsPower.LocalApi.Internal;
 
 internal static class Throw
 {
-    public static void IfNotSuccessStatusCode(HttpResponseMessage response, Type responseType)
+    public static void IfNotSuccessStatusCode<T>(HttpResponseMessage response)
     {
         if (!response.IsSuccessStatusCode)
         {
-            var message = $"Bad HTTP response from {response.RequestMessage?.RequestUri} for type {responseType.Name}: {response.StatusCode} {response.ReasonPhrase}";
+            var message = $"Bad HTTP response from {response.RequestMessage?.RequestUri} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
             throw new HttpRequestException(message);
         }
     }
