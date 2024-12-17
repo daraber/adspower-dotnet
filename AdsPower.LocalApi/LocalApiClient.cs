@@ -9,20 +9,33 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi;
 
-public class LocalApiClient(string url, HttpClient? httpClient = null, bool disposeHttpClient = true)
-    : ILocalApiClient, IDisposable
+public class LocalApiClient : ILocalApiClient, IDisposable
 {
-    private readonly HttpClient _httpClient = httpClient ?? new HttpClient();
+    private readonly bool _disposeHttpClient;
+    private readonly string _url;
+    private readonly HttpClient _httpClient;
+
+    public BrowserApi Browser { get; }
+    public GroupApi Group { get; }
+    public ApplicationApi Application { get; }
+    public ProfileApi Profile { get; }
 
     public LocalApiClient(string url, HttpMessageHandler httpMessageHandler)
         : this(url, new HttpClient(httpMessageHandler))
     {
     }
 
-    public BrowserApi Browser => new(this);
-    public GroupApi Group => new(this);
-    public ApplicationApi Application => new(this);
-    public ProfileApi Profile => new(this);
+    public LocalApiClient(string url, HttpClient? httpClient = null, bool disposeHttpClient = true)
+    {
+        _url = url;
+        _httpClient = httpClient ?? new HttpClient();
+        _disposeHttpClient = disposeHttpClient;
+
+        Browser = new BrowserApi(this);
+        Group = new GroupApi(this);
+        Application = new ApplicationApi(this);
+        Profile = new ProfileApi(this);
+    }
 
     /// <inheritdoc/>
     public async Task<LocalApiResponse> GetConnectionStatusAsync(CancellationToken cancellationToken = default)
@@ -49,7 +62,7 @@ public class LocalApiClient(string url, HttpClient? httpClient = null, bool disp
     private async Task<T> PostAsync<T>(string path, object request, CancellationToken cancellationToken = default)
         where T : LocalApiResponse
     {
-        var uriBuilder = new UriBuilder(url) { Path = path };
+        var uriBuilder = new UriBuilder(_url) { Path = path };
 
         using var response = await _httpClient.PostAsJsonAsync(uriBuilder.Uri, request, cancellationToken);
         Throw.IfNotSuccessStatusCode<T>(response);
@@ -66,7 +79,7 @@ public class LocalApiClient(string url, HttpClient? httpClient = null, bool disp
         CancellationToken cancellationToken = default
     ) where T : LocalApiResponse
     {
-        var uriBuilder = new UriBuilder(url) { Path = path };
+        var uriBuilder = new UriBuilder(_url) { Path = path };
 
         if (request is not null)
         {
@@ -94,7 +107,7 @@ public class LocalApiClient(string url, HttpClient? httpClient = null, bool disp
 
     public void Dispose()
     {
-        if (disposeHttpClient)
+        if (_disposeHttpClient)
         {
             _httpClient.Dispose();
             GC.SuppressFinalize(this);

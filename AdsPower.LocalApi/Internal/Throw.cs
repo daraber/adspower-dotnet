@@ -8,7 +8,7 @@ internal static class Throw
     {
         if (!response.IsSuccessStatusCode)
         {
-            var message = $"Bad HTTP response from {response.RequestMessage?.RequestUri} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
+            var message = $"Unsuccessful HTTP response from {response.RequestMessage?.RequestUri} for type {typeof(T).Name}: {response.StatusCode} {response.ReasonPhrase}";
             throw new HttpRequestException(message, null, response.StatusCode);
         }
     }
@@ -17,7 +17,7 @@ internal static class Throw
     {
         if (result is null)
         {
-            var message = $"The deserialized HTTP response from {path} for type {typeof(T).Name} is null.";
+            var message = $"The HTTP response from {path} for type {typeof(T).Name} deserialized to null.";
             throw new HttpRequestException(message);
         }
     }
