@@ -4,9 +4,6 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Browser;
 
-/// <summary>
-/// Provides methods to interact with browser operations.
-/// </summary>
 public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
 {
     #region StartAsync
@@ -88,7 +85,7 @@ public class BrowserApi(ILocalApiClient apiClient) : IBrowserApi
     #endregion
 
     #region GetStatusListAsync
-    
+
     /// <summary>
     /// Queries browser information.
     /// </summary>

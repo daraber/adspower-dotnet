@@ -4,9 +4,6 @@ using AdsPower.LocalApi.Shared;
 
 namespace AdsPower.LocalApi.Profile;
 
-/// <summary>
-/// Provides methods to interact with profile operations.
-/// </summary>
 public class ProfileApi(ILocalApiClient client) : IProfileApi
 {
     public async Task<CreateProfileResponse> CreateAsync(
