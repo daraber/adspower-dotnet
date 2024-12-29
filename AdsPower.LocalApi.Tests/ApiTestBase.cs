@@ -97,8 +97,7 @@ public abstract class ApiTestBase
             Assert.That(localApiResponse.Data, Is.Null);
         }
     }
-
-
+    
     protected async Task<TResponse> MockResponse<TResponse>(
         string path,
         Func<LocalApiClient, Func<CancellationToken, Task<TResponse>>> call,
@@ -112,8 +111,7 @@ public abstract class ApiTestBase
         var apiResponse = await apiFunction(cancellationToken);
         return apiResponse;
     }
-
-
+    
     protected void TestCancellationToken<TRequest, TResponse>(
         string path,
         Func<LocalApiClient, Func<TRequest, CancellationToken, Task<TResponse>>> call,
