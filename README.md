@@ -11,8 +11,8 @@ Endpoints:
 
 ```csharp
 var client = new LocalApiClient("http://localhost:5000");
-var connectionResponse = await client.GetConnectionStatusAsync();
 
+var connectionResponse = await client.GetConnectionStatusAsync();
 if(!connectionResponse.Success)
 {
     Console.WriteLine(connectionResponse.Message);
