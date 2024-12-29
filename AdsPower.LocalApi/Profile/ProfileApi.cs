@@ -24,20 +24,26 @@ public class ProfileApi(ILocalApiClient client) : IProfileApi
         return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
 
-    public async Task<ProfilesListResponse> ListAsync(CancellationToken cancellationToken = default)
-    {
-        var request = new ListProfilesRequest();
-        return await ListAsync(request, cancellationToken);
-    }
+    #region ListAsync
 
-    public async Task<ProfilesListResponse> ListAsync(
-        ListProfilesRequest request,
-        CancellationToken cancellationToken = default
-    )
-    {
-        const string path = "/api/v1/user/list";
-        return await client.GetAsync<ProfilesListResponse>(path, request, cancellationToken);
-    }
+     public async Task<ProfilesListResponse> ListAsync(CancellationToken cancellationToken = default)
+        {
+            var request = new ListProfilesRequest();
+            return await ListAsync(request, cancellationToken);
+        }
+    
+        public async Task<ProfilesListResponse> ListAsync(
+            ListProfilesRequest request,
+            CancellationToken cancellationToken = default
+        )
+        {
+            const string path = "/api/v1/user/list";
+            return await client.GetAsync<ProfilesListResponse>(path, request, cancellationToken);
+        }
+
+    #endregion
+
+    #region DeleteAsync
 
     public async Task<LocalApiResponse> DeleteAsync(List<string> userIds, CancellationToken cancellationToken = default)
     {
@@ -53,6 +59,10 @@ public class ProfileApi(ILocalApiClient client) : IProfileApi
         const string path = "/api/v1/user/delete";
         return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
+
+    #endregion
+
+    #region RegroupAsync
 
     public async Task<LocalApiResponse> RegroupAsync(
         List<string> userIds,
@@ -72,6 +82,8 @@ public class ProfileApi(ILocalApiClient client) : IProfileApi
         const string path = "/api/v1/user/regroup";
         return await client.PostAsync<LocalApiResponse>(path, request, cancellationToken);
     }
+
+    #endregion
 
     public async Task<LocalApiResponse> DeleteCacheAsync(CancellationToken cancellationToken = default)
     {
